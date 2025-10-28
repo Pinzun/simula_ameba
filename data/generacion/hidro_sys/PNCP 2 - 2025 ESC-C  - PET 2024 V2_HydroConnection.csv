@@ -1,0 +1,394 @@
+name,start_time,end_time,report,h_type,ini,end,h_max_flow,h_min_flow,h_ramp,h_delay,h_delayed_q,h_flow_penalty
+"inflow Afl_Cipreses -> Emb_Cipreses 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Cipreses","Emb_Cipreses",99999,0,99999,0,0,0
+"Emb_Pangue_overflow",1970-01-01-00:00,2060-01-01-00:00,true,overflow,"Emb_Pangue","HG_Angostura",99999,0,99999,0,0,0
+"HG_Palmucho_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Palmucho","Emb_Pangue",99999,0,99999,0,0,0
+"turbinated HG_La_Mina -> B_M_Isla 1",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_La Mina","B_M_Isla",99999,0,99999,0,0,0
+"HG_Juncal_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Juncal","HG_Juncalito",99999,0,99999,0,0,0
+"Emb_Ralco_overflow",1970-01-01-00:00,2060-01-01-00:00,true,overflow,"Emb_Ralco","HG_Palmucho",99999,0,99999,0,0,0
+"HG_Quilleco_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Quilleco","Balance_Tucapel",99999,0,99999,0,0,0
+"HG_Hornitos_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Hornitos","HG_Juncal",99999,0,99999,0,0,0
+"HG_Abanico_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Abanico","HG_Antuco",99999,0,99999,0,0,0
+"HG_Rucue_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Rucue","HG_Quilleco",99999,0,99999,0,0,0
+"Emb_ElToro_overflow",1970-01-01-00:00,2060-01-01-00:00,true,overflow,"Emb_ElToro","HG_Abanico",99999,0,99999,0,0,0
+"waterway CANHORN",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANHORN","HG_Hornitos",99999,0,99999,0,0,0
+"waterway Rio_Melado",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Rio_Melado","C_Melado",99999,0,99999,0,0,0
+"waterway Rio_Teno",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Rio_Teno","Emb_Rapel",99999,0,99999,0,0,0
+"turbinated HG_Juncalito",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Juncalito","CANACO",99999,0,99999,0,0,0
+"waterway CANACO",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANACO","HG_Los Quilos",99999,0,99999,0,0,0
+"turbinated HG_LomaAlta",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Loma Alta","B_Maule",99999,0,99999,0,0,0
+"waterway B_M_Isla",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_M_Isla","HG_Isla",99999,0,99999,0,0,0
+"waterway B_C_Isla -> HG_Isla 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_C_Isla","HG_Isla",99999,0,99999,0,0,0
+"turbinated HG_OjosdeAgua",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Ojos de Agua","B_C_Isla",99999,0,99999,0,0,0
+"turbinated HG_Cipreses",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Cipreses","B_C_Isla",99999,0,99999,0,0,0
+"HG_ElToro_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_El Toro","HG_Antuco",99999,0,99999,0,0,0
+"HG_Abanico_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Abanico","HG_Antuco",99999,0,99999,0,0,0
+"released Emb_Rapel -> HG_Rapel 1",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Rapel","HG_Rapel",99999,0,99999,0,0,0
+"released Emb_Pangue -> HG_Pangue 1",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Pangue","HG_Pangue",99999,0,99999,0,0,0
+"released Emb_Ralco -> HG_Ralco 1",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Ralco","HG_Ralco",99999,0,99999,0,0,0
+"HG_Los_Condores_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Los Condores","HG_La Mina",99999,0,99999,0,0,0
+"HG_Rucue_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Rucue","HG_Quilleco",99999,0,99999,0,0,0
+"Emb_Colbun_released",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Colbun","HG_Colbun",99999,0,99999,0,0,0
+"released Emb_Cipreses",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Cipreses","HG_Cipreses",99999,0,99999,0,0,0
+"released Emb_Canutillar -> HG_Canutillar 1",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Canutillar","HG_Canutillar",99999,0,99999,0,0,0
+"ElToro_released",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_ElToro","HG_El Toro",99999,0,99999,0,0,0
+"HG_Quilleco_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Quilleco","Balance_Tucapel",99999,0,99999,0,0,0
+"HG_Los_Condores_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Los Condores","HG_La Mina",99999,0,99999,0,0,0
+"HG_Cipreses_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Cipreses","HG_Ojos de Agua",99999,0,99999,0,0,0
+"Emb_ElToro_filtrated",1970-01-01-00:00,2060-01-01-00:00,true,filtrated,"Emb_ElToro","HG_Abanico",99999,0,99999,0,0,0
+"Emb_Cipreses_filtrated",1970-01-01-00:00,2060-01-01-00:00,true,filtrated,"Emb_Cipreses","HG_Ojos de Agua",99999,0,99999,0,0,0
+"HG_Chiburgo_spilled",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Chiburgo","HG_San Clemente",99999,0,99999,0,0,0
+"HG_Ralco_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Ralco","Emb_Pangue",99999,0,99999,0,0,0
+"HG_Palmucho_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Palmucho","Emb_Pangue",99999,0,99999,0,0,0
+"HG_Hornitos_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Hornitos","HG_Juncal",99999,0,99999,0,0,0
+"HG_LosQuilos_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Los Quilos","HG_Chacabuquito",99999,0,99999,0,0,0
+"HG_LosHierros_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Los Hierros","HG_Los Hierros 2",99999,0,99999,0,0,0
+"HG_Isla_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Isla","HG_Curillinque",99999,0,99999,0,0,0
+"HG_Curillinque_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Curillinque","HG_Loma Alta",99999,0,99999,0,0,0
+"HG_Pangue_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Pangue","HG_Angostura",99999,0,99999,0,0,0
+"HG_Juncal_turbinated",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Juncal","HG_Juncalito",99999,0,99999,0,0,0
+"inflow Afl_SanIgnacio",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_SanIgnacio","HG_San Ignacio",99999,0,99999,0,0,0
+"inflow Afl_Los_Condores",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Los_Condores","HG_Los Condores",99999,0,99999,0,0,0
+"inflow Afl_Clemente",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_SanClemente","HG_San Clemente",99999,0,99999,0,0,0
+"inflow Afl_Robleria",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Robleria","HG_Robleria",99999,0,99999,0,0,0
+"inflow Afl_OjosdeAgua",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_OjosdeAgua","HG_Ojos de Agua",99999,0,99999,0,0,0
+"inflow Afl_LosHierros_2",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosHierros2","HG_Los Hierros 2",99999,0,99999,0,0,0
+"inflow Afl_Blanco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Blanco","HG_Blanco",99999,0,99999,0,0,0
+"inflow Afl_Chacabuquito",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Chacabuquito","HG_Chacabuquito",99999,0,99999,0,0,0
+"inflow Afl_Chiburgo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Chiburgo","HG_Chiburgo",99999,0,99999,0,0,0
+"inflow Afl_Rio_Melado",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Rio_Melado","Rio_Melado",99999,0,99999,0,0,0
+"inflow Afl_LosHierros",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosHierros","HG_Los Hierros",99999,0,99999,0,0,0
+"inflow Afl_Palmucho",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Palmucho","HG_Palmucho",99999,0,99999,0,0,0
+"inflow Afl_LosQuilos",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosQuilos","HG_Los Quilos",99999,0,99999,0,0,0
+"inflow Afl_LomaAlta",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LomaAlta","HG_Loma Alta",99999,0,99999,0,0,0
+"inflow Afl_LaHiguera",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaHiguera","HG_La Higuera",99999,0,99999,0,0,0
+"inflow Afl_Quilleco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Quilleco","HG_Quilleco",99999,0,99999,0,0,0
+"inflow Afl_Rucue",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Rucue","HG_Rucue",99999,0,99999,0,0,0
+"inflow Afl_Isla",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Isla","HG_Isla",99999,0,99999,0,0,0
+"inflow Afl_Hornitos",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hornitos","HG_Hornitos",99999,0,99999,0,0,0
+"inflow Afl_Confluencia",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaConfluencia","HG_Confluencia",99999,0,99999,0,0,0
+"inflow Afl_Juncal",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Juncal","HG_Juncal",99999,0,99999,0,0,0
+"inflow Afl_Juncalito",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Juncalito","HG_Juncalito",99999,0,99999,0,0,0
+"inflow Afl_CANECOL",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CANECOL","CANECOL",99999,0,99999,0,0,0
+"inflow Afl_CANBLANCO",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CANBLANCO","CANBLANCO",99999,0,99999,0,0,0
+"inflow Afl_Colbun",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Colbun","Emb_Colbun",99999,0,99999,0,0,0
+"inflow Afl_CMNTronco_1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CMNTronco_1","CMNTronco_1",99999,0,99999,0,0,0
+"inflow Afl_CANHORN",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CANHORN","CANHORN",99999,0,99999,0,0,0
+"inflow Afl_Angostura",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Angostura","HG_Angostura",99999,0,99999,0,0,0
+"inflow Afl_Abanico",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ABANICO","HG_Abanico",99999,0,99999,0,0,0
+"inflow Afl_B_Maule",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_B_Maule","B_Maule",99999,0,99999,0,0,0
+"inflow Afl_B_M_Isla",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_B_M_Isla","B_M_Isla",99999,0,99999,0,0,0
+"inflow Afl_Antuco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Antuco","HG_Antuco",99999,0,99999,0,0,0
+"inflow Afl_Pangue",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pangue","HG_Pangue",99999,0,99999,0,0,0
+"inflow Afl_Laja_I",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Laja1","HG_Laja I",99999,0,99999,0,0,0
+"inflow Afl_La_Mina",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaMina","HG_La Mina",99999,0,99999,0,0,0
+"inflow Afl_Rapel",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Rapel","Emb_Rapel",99999,0,99999,0,0,0
+"inflow Afl_Ralco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Ralco","Emb_Ralco",99999,0,99999,0,0,0
+"inflow Afl_HLC_Portillo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_HLC_Portillo","HLC_Portillo",99999,0,99999,0,0,0
+"inflow Afl_ElToro -> Emb_ElToro 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElToro","Emb_ElToro",99999,0,99999,0,0,0
+"inflow Afl_Curillinque",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Curillinque","HG_Curillinque",99999,0,99999,0,0,0
+"inflow Afl_HLH_Tinguiririca",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_HLH_Tinguiririca","HLH_Tinguiririca",99999,0,99999,0,0,0
+"inflow Afl_HLH_Azufre",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_HLH_Azufre","HLH_Azufre",99999,0,99999,0,0,0
+"inflow Afl_Canutillar -> Emb_Canutillar 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Canutillar","Emb_Canutillar",99999,0,99999,0,0,0
+"waterway Rio_Melado 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Rio_Melado","Emb_Pehuenche",99999,0,99999,0,0,0
+"turbinated HG_LosHierros_2",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Los Hierros 2","Emb_Pehuenche",99999,0,99999,0,0,0
+"inflow Afl_Pehuenche",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pehuenche","Emb_Pehuenche",99999,0,99999,0,0,0
+"waterway B_Maule",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_Maule","Emb_Pehuenche",99999,0,99999,0,0,0
+"released Emb_Pehuenche",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_Pehuenche","HG_Pehuenche",99999,0,99999,0,0,0
+"spilled HG_LosHierros_2",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Los Hierros 2","Emb_Pehuenche",99999,0,99999,0,0,0
+"spilled HG_LosHierros",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Los Hierros","Emb_Pehuenche",99999,0,99999,0,0,0
+"inflow Afl_Machicura",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Machicura","HG_Machicura",99999,0,99999,0,0,0
+"turbinated HG_Colbun",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Colbun","HG_Machicura",99999,0,99999,0,0,0
+"spilled HG_Blanco",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Blanco","CANACO",99999,0,99999,0,0,0
+"waterway CANACO-CANCHAC",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANACO","CANCHAC",99999,0,99999,0,0,0
+"inflow Afl_Rio_Teno -> Rio_Teno 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Rio_Teno","Rio_Teno",99999,0,99999,0,0,0
+"spilled HG_La_Mina",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_La Mina","B_M_Isla",99999,0,99999,0,0,0
+"vertido B_M_Isla",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_M_Isla","B_Maule",99999,0,99999,0,0,0
+"waterway HLC_Portillo",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HLC_Portillo","HG_Confluencia",99999,0,99999,0,0,0
+"turbinated HG_Blanco",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Blanco","CANACO",99999,0,99999,0,0,0
+"waterway CMNTronco_1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CMNTronco_1","Emb_Colbun",99999,0,99999,0,0,0
+"waterway B_Maule-CMNTronco_1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_Maule","CMNTronco_1",99999,0,99999,0,0,0
+"spilled HG_OjosdeAgua",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Ojos de Agua","B_C_Isla",99999,0,99999,0,0,0
+"waterway B_C_Isla",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"B_C_Isla","B_Maule",99999,0,99999,0,0,0
+"waterway HLH_Azufre",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HLH_Azufre","HG_La Higuera",99999,0,99999,0,0,0
+"waterway HLH_Tinguiririca",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HLH_Tinguiririca","HG_La Higuera",99999,0,99999,0,0,0
+"waterway A_Chacayes",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"A_Chacayes","HG_Chacayes",99999,0,99999,0,0,0
+"waterway Cipreses_Chac",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Cipreses_Chac","HG_Chacayes",99999,0,99999,0,0,0
+"waterway HLH_Tinguiririca-Confluencia",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HLH_Tinguiririca","HG_Confluencia",99999,0,99999,0,0,0
+"waterway CANECOL",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANECOL","CANRUCUE",99999,0,99999,0,0,0
+"waterway CANRUCUE",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANRUCUE","Balance_Tucapel",99999,0,99999,0,0,0
+"waterway CANHORN-Juncal",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANHORN","HG_Juncal",99999,0,99999,0,0,0
+"spilled HG_Juncalito",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Juncalito","CANACO",99999,0,99999,0,0,0
+"waterway Canal_Laja",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Canal_Laja","HG_Laja I",99999,0,99999,0,0,0
+"spilled HG_LomaAlta",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Loma Alta","B_Maule",99999,0,99999,0,0,0
+"spilled HG_Isla",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Isla","B_Maule",99999,0,99999,0,0,0
+"spilled HG_Curillinque",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Curillinque","B_Maule",99999,0,99999,0,0,0
+"waterway CLAJRUCUE",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CLAJRUCUE","Balance_Tucapel",99999,0,99999,0,0,0
+"waterway C_Melado-LosHierros",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"C_Melado","HG_Los Hierros",99999,0,99999,0,0,0
+"inflow Afl_Chipreses_Chac -> Cipreses_Chac 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Cipreses_Chac","Cipreses_Chac",99999,0,99999,0,0,0
+"inflow Afl_A_Chacayes -> A_Chacayes 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_A_Chacayes","A_Chacayes",99999,0,99999,0,0,0
+"Inflow_ALTORENAICO",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ALTORENAICO","HG_Alto Renaico",99999,0,99999,0,0,0
+"Inflow_Boquiamargo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Boquiamargo","HG_Boquiamargo",99999,0,99999,0,0,0
+"Inflow_Bureo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Bureo","HG_Bureo",99999,0,99999,0,0,0
+"Inflow_Caliboro",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Caliboro","HG_Caliboro",99999,0,99999,0,0,0
+"Inflow_ElDiuto",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElDiuto","HG_El Diuto",99999,0,99999,0,0,0
+"Inflow_ElMirador",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElMirador","HG_El Mirador",99999,0,99999,0,0,0
+"Inflow_Itata",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Itata","HG_Itata",99999,0,99999,0,0,0
+"Inflow_LaBifurcada",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaBifurcada","HG_La Bifurcada",99999,0,99999,0,0,0
+"Inflow_LaVina",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaVina","HG_La Vi�a-Alto La Vi�a",99999,0,99999,0,0,0
+"Inflow_Lleuquereo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Lleuquereo","HG_Lleuquereo",99999,0,99999,0,0,0
+"Inflow_LosPadres",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosPadres","HG_Los Padres",99999,0,99999,0,0,0
+"Inflow_Mampil",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Mampil","HG_Mampil",99999,0,99999,0,0,0
+"Inflow_Melo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Melo","HG_Melo",99999,0,99999,0,0,0
+"Inflow_Peuchen",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Peuchen","HG_Peuchen",99999,0,99999,0,0,0
+"Inflow_PMGDMulchen",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_PMGDMulchen","HG_Mulchen",99999,0,99999,0,0,0
+"Inflow_Quillaileo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Quillaileo","HG_Quillaileo",99999,0,99999,0,0,0
+"Inflow_Renaico",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Renaico","HG_Renaico Hidro",99999,0,99999,0,0,0
+"Inflow_RioPicoiquen",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_RioPicoiquen","HG_Picoiquen",99999,0,99999,0,0,0
+"Inflow_PMGDSantaIsabel",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_PMGDSantaIsabel","HG_Santa Isabel",99999,0,99999,0,0,0
+"Inflow_ElBrinco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElBrinco","HG_MCH El Brinco",99999,0,99999,0,0,0
+"Inflow_El_Pinar",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_El_Pinar","HG_El Pinar",99999,0,99999,0,0,0
+"Inflow_Nuble",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Nuble","HG_�uble",99999,0,99999,0,0,0
+"Inflow_San_Pedro_Hidro",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_San_Pedro_Hidro","HG_San Pedro",99999,0,99999,0,0,0
+"Inflow_Trupan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Trupan","HG_Trup�n",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa01","HG_Hid_Ancoa01",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa02","HG_Hid_Ancoa02",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa04","HG_Hid_Ancoa04",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa06",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa06","HG_Hid_Ancoa06",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa07",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa07","HG_Hid_Ancoa07",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa08",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa08","HG_Hid_Ancoa08",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa09",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa09","HG_Hid_Ancoa09",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa10",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa10","HG_Hid_Ancoa10",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa11",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa11","HG_Hid_Ancoa11",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa12",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa12","HG_Hid_Ancoa12",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa13",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa13","HG_Hid_Ancoa13",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa14",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa14","HG_Hid_Ancoa14",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa15",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa15","HG_Hid_Ancoa15",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa16",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa16","HG_Hid_Ancoa16",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa17",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa17","HG_Hid_Ancoa17",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa19",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa19","HG_Hid_Ancoa19",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa20",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa20","HG_Hid_Ancoa20",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua01","HG_Hid_Charrua01",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua02","HG_Hid_Charrua02",99999,0,99999,0,0,0
+"Inflow_Hid_Ancoa18",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Ancoa18","HG_Hid_Ancoa18",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin01","HG_Hid_Cautin01",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua03",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua03","HG_Hid_Charrua03",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua04","HG_Hid_Charrua04",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua05",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua05","HG_Hid_Charrua05",99999,0,99999,0,0,0
+"Inflow_Hid_Charrua06",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Charrua06","HG_Hid_Charrua06",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin15",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin15","HG_Hid_Cautin15",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin06",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin06","HG_Hid_Cautin06",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen02","HG_Hid_Mulchen02",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen04","HG_Hid_Mulchen04",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen05",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen05","HG_Hid_Mulchen05",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen06",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen06","HG_Hid_Mulchen06",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen08",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen08","HG_Hid_Mulchen08",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen09",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen09","HG_Hid_Mulchen09",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen11",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen11","HG_Hid_Mulchen11",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen13",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen13","HG_Hid_Mulchen13",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen14",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen14","HG_Hid_Mulchen14",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen15",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen15","HG_Hid_Mulchen15",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen16",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen16","HG_Hid_Mulchen16",99999,0,99999,0,0,0
+"Inflow_Ancoa",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Ancoa","HG_Ancoa",99999,0,99999,0,0,0
+"Inflow_Cumpeo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Cumpeo","HG_Cumpeo",99999,0,99999,0,0,0
+"Inflow_DosValles",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_DosValles","HG_Dos Valles_RBC",99999,0,99999,0,0,0
+"Inflow_ElGalpon",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElGalpon","HG_El Galpon",99999,0,99999,0,0,0
+"Inflow_ElPaso",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElPaso","HG_El Paso",99999,0,99999,0,0,0
+"Inflow_Lircay",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Lircay","HG_Lircay",99999,0,99999,0,0,0
+"Inflow_Mariposas",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Mariposas","HG_Mariposas",99999,0,99999,0,0,0
+"Inflow_MCHDosal",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_MCHDosal","HG_MCH Dosal",99999,0,99999,0,0,0
+"Inflow_Providencia",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Providencia","HG_Providencia",99999,0,99999,0,0,0
+"Inflow_Purisima",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Purisima","HG_Pur�sima",99999,0,99999,0,0,0
+"Inflow_RioColorado",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_RioColorado","HG_Rio Colorado",99999,0,99999,0,0,0
+"Inflow_SanAndres",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_SanAndres","HG_San Andres",99999,0,99999,0,0,0
+"Inflow_Convento_Viejo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Convento_Viejo","HG_Convento Viejo",99999,0,99999,0,0,0
+"Inflow_ALFALFAL",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ALFALFAL","HG_Alfalfal",99999,0,99999,0,0,0
+"Inflow_Arrayan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Arrayan","HG_Arrayan",99999,0,99999,0,0,0
+"Inflow_AuxiliardelMaipo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_AuxiliardelMaipo","HG_Auxiliar del Maipo",99999,0,99999,0,0,0
+"Inflow_Carena",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Carena","HG_Carena",99999,0,99999,0,0,0
+"Inflow_Coya",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Coya","HG_Coya",99999,0,99999,0,0,0
+"Inflow_ElLlano",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElLlano","HG_El Llano",99999,0,99999,0,0,0
+"Inflow_ElManzano",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElManzano","HG_El Manzano",99999,0,99999,0,0,0
+"Inflow_ElRincon",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElRincon","HG_El Rinc�n",99999,0,99999,0,0,0
+"Inflow_ElTartaro",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElTartaro","HG_El T�rtaro",99999,0,99999,0,0,0
+"Inflow_Eyzaguirre",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Eyzaguirre","HG_Eyzaguirre",99999,0,99999,0,0,0
+"Inflow_Florida",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Florida","HG_Florida",99999,0,99999,0,0,0
+"Inflow_Guayacan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Guayacan","HG_Guayacan",99999,0,99999,0,0,0
+"Inflow_LasVertientes",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LasVertientes","HG_Las Vertientes",99999,0,99999,0,0,0
+"Inflow_LosBajos",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosBajos","HG_Los Bajos",99999,0,99999,0,0,0
+"Inflow_LosMorros",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosMorros","HG_Los Morros",99999,0,99999,0,0,0
+"Inflow_Maitenes",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Maitenes","HG_Maitenes",99999,0,99999,0,0,0
+"Inflow_Mallarauco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Mallarauco","HG_Mallarauco",99999,0,99999,0,0,0
+"Inflow_Puntilla",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Puntilla","HG_Puntilla",99999,0,99999,0,0,0
+"Inflow_Queltehues",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Queltehues","HG_Queltehues",99999,0,99999,0,0,0
+"Inflow_SauceAndes",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_SauceAndes","HG_Sauce Andes",99999,0,99999,0,0,0
+"Inflow_Sauzal",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Sauzal","HG_Sauzal",99999,0,99999,0,0,0
+"Inflow_Sauzalito",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Sauzalito","HG_Sauzalito",99999,0,99999,0,0,0
+"Inflow_Volcan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Volcan","HG_Volcan",99999,0,99999,0,0,0
+"Inflow_Alfalfal_2",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Alfalfal_2","HG_Alfalfal 02",99999,0,99999,0,0,0
+"Inflow_Las_Lajas",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Las_Lajas","HG_Las Lajas",99999,0,99999,0,0,0
+"Inflow_Palacios",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Palacios","HG_Palacios",99999,0,99999,0,0,0
+"Inflow_Vina_Tarapaca",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Vina_Tarapaca","HG_Vi�a Tarapac�",99999,0,99999,0,0,0
+"Inflow_MCHPCipresillos",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_MCHPCipresillos","HG_MCHP Cipresillos",99999,0,99999,0,0,0
+"Inflow_Hid_Candelaria01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Candelaria01","HG_Hid_Candelaria01",99999,0,99999,0,0,0
+"Inflow_Hid_Candelaria04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Candelaria04","HG_Hid_Candelaria04",99999,0,99999,0,0,0
+"Inflow_Hid_Candelaria05",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Candelaria05","HG_Hid_Candelaria05",99999,0,99999,0,0,0
+"Inflow_Hid_Rapel02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Rapel02","HG_Hid_Rapel02",99999,0,99999,0,0,0
+"Inflow_Hid_Polpaico01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Polpaico01","HG_Hid_Polpaico01",99999,0,99999,0,0,0
+"Inflow_LaPaloma",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaPaloma","HG_La Paloma",99999,0,99999,0,0,0
+"Inflow_LosMolles",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosMolles","HG_Los Molles",99999,0,99999,0,0,0
+"Inflow_Puclaro",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Puclaro","HG_Puclaro",99999,0,99999,0,0,0
+"Inflow_RioHuasco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_RioHuasco","HG_CH Rio Huasco",99999,0,99999,0,0,0
+"Inflow_CAVANCHA",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CAVANCHA","HG_CAVANCHA",99999,0,99999,0,0,0
+"Inflow_CHAPIQUINA",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_CHAPIQUINA","HG_CHAPIQUINA",99999,0,99999,0,0,0
+"Inflow_ALLIPEN",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ALLIPEN","HG_Allip�n",99999,0,99999,0,0,0
+"Inflow_Carilafquen",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Carilafquen","HG_Carilafqu�n",99999,0,99999,0,0,0
+"Inflow_Donguil",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Donguil","HG_Donguil",99999,0,99999,0,0,0
+"Inflow_ElAgrio",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElAgrio","HG_El Agrio",99999,0,99999,0,0,0
+"Inflow_ElCanelo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElCanelo","HG_El Canelo",99999,0,99999,0,0,0
+"Inflow_Maisan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Maisan","HG_Maisan",99999,0,99999,0,0,0
+"Inflow_Malalcahuello",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Malalcahuello","HG_Malalcahuello",99999,0,99999,0,0,0
+"Inflow_RioTrueno",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_RioTrueno","HG_Rio Trueno",99999,0,99999,0,0,0
+"Inflow_SantaElena",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_SantaElena","HG_Santa Elena",99999,0,99999,0,0,0
+"Inflow_Trufultruful",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Trufultruful","HG_Trufultruful",99999,0,99999,0,0,0
+"Inflow_Las_Nieves",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Las_Nieves","HG_Las Nieves",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin02","HG_Hid_Cautin02",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin03",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin03","HG_Hid_Cautin03",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin07",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin07","HG_Hid_Cautin07",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin08",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin08","HG_Hid_Cautin08",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin09",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin09","HG_Hid_Cautin09",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin10",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin10","HG_Hid_Cautin10",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin11",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin11","HG_Hid_Cautin11",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin12",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin12","HG_Hid_Cautin12",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin14",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin14","HG_Hid_Cautin14",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin16",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin16","HG_Hid_Cautin16",99999,0,99999,0,0,0
+"Inflow_Hid_Cautin17",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Cautin17","HG_Hid_Cautin17",99999,0,99999,0,0,0
+"Inflow_Hid_Mulchen01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Mulchen01","HG_Hid_Mulchen01",99999,0,99999,0,0,0
+"Inflow_Callao",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Callao","HG_CH Callao",99999,0,99999,0,0,0
+"Inflow_Contra",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Contra","HG_Contra",99999,0,99999,0,0,0
+"Inflow_Curileufu",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Curileufu","HG_Curileufu",99999,0,99999,0,0,0
+"Inflow_DonWalterio",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_DonWalterio","HG_Don Walterio",99999,0,99999,0,0,0
+"Inflow_DonaHilda",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_DonaHilda","HG_Do�a Hilda",99999,0,99999,0,0,0
+"Inflow_ElArrayan",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElArrayan","HG_El Arrayan",99999,0,99999,0,0,0
+"Inflow_Hidrorininahue",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hidrorininahue","HG_Hidrori�inahue",99999,0,99999,0,0,0
+"Inflow_LasFlores",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LasFlores","HG_Las Flores",99999,0,99999,0,0,0
+"Inflow_Lican",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Lican","HG_Lican",99999,0,99999,0,0,0
+"Inflow_LosColonos",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosColonos","HG_Los Colonos",99999,0,99999,0,0,0
+"Inflow_LosCorrales",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosCorrales","HG_Los Corrales",99999,0,99999,0,0,0
+"Inflow_LosCorrales2",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LosCorrales2","HG_Los Corrales 2",99999,0,99999,0,0,0
+"Inflow_MariaElena",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_MariaElena","HG_Mar�a Elena",99999,0,99999,0,0,0
+"Inflow_MolineraVillarrica",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_MolineraVillarrica","HG_Molinera Villarica",99999,0,99999,0,0,0
+"Inflow_Muchi",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Muchi","HG_Muchi",99999,0,99999,0,0,0
+"Inflow_Nalcas",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Nalcas","HG_CH Nalcas",99999,0,99999,0,0,0
+"Inflow_Panguipulli",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Panguipulli","HG_Panguipulli",99999,0,99999,0,0,0
+"Inflow_Pehui",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pehui","HG_Pehui",99999,0,99999,0,0,0
+"Inflow_Pichilonco",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pichilonco","HG_Pichilonco",99999,0,99999,0,0,0
+"Inflow_Pilmaiquen",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pilmaiquen","HG_Pilmaiquen",99999,0,99999,0,0,0
+"Inflow_Piutel",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Piutel","HG_Piutel",99999,0,99999,0,0,0
+"Inflow_Pulelfu",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pulelfu","HG_Pulelfu",99999,0,99999,0,0,0
+"Inflow_Pullinque",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Pullinque","HG_Pullinque",99999,0,99999,0,0,0
+"Inflow_Reca",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Reca","HG_Reca",99999,0,99999,0,0,0
+"Inflow_Rucatayo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Rucatayo","HG_Rucatayo",99999,0,99999,0,0,0
+"Inflow_Trailelfu",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Trailelfu","HG_Trailelfu",99999,0,99999,0,0,0
+"Inflow_Tranquil",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Tranquil","HG_Tranquil",99999,0,99999,0,0,0
+"Inflow_MSA_1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_MSA_1","HG_MSA-1",99999,0,99999,0,0,0
+"Inflow_Cumbres",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Cumbres","HG_Cumbres",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli10",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli10","HG_Hid_Pichirropulli10",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli01","HG_Hid_Pichirropulli01",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli03",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli03","HG_Hid_Pichirropulli03",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli04","HG_Hid_Pichirropulli04",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli05",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli05","HG_Hid_Pichirropulli05",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli06",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli06","HG_Hid_Pichirropulli06",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli07",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli07","HG_Hid_Pichirropulli07",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli08",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli08","HG_Hid_Pichirropulli08",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli09",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli09","HG_Hid_Pichirropulli09",99999,0,99999,0,0,0
+"Inflow_Hid_Pichirropulli11",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Pichirropulli11","HG_Hid_Pichirropulli11",99999,0,99999,0,0,0
+"Inflow_Hid_Valdivia01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Valdivia01","HG_Hid_Valdivia01",99999,0,99999,0,0,0
+"Inflow_Hid_Rahue01",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Rahue01","HG_Hid_Rahue01",99999,0,99999,0,0,0
+"Inflow_Hid_Rahue02",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Rahue02","HG_Hid_Rahue02",99999,0,99999,0,0,0
+"Inflow_Hid_Rahue03",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Rahue03","HG_Hid_Rahue03",99999,0,99999,0,0,0
+"Inflow_Hid_Rahue04",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_Rahue04","HG_Hid_Rahue04",99999,0,99999,0,0,0
+"Inflow_Capullo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Capullo","HG_Capullo",99999,0,99999,0,0,0
+"Inflow_Chanleufu",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Chanleufu","HG_Chanleufu",99999,0,99999,0,0,0
+"Inflow_ElColorado",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_ElColorado","HG_El Colorado",99999,0,99999,0,0,0
+"Inflow_Ensenada",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Ensenada","HG_Ensenada",99999,0,99999,0,0,0
+"Inflow_LaArena",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LaArena","HG_La Arena",99999,0,99999,0,0,0
+"Inflow_Collil",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Collil","HG_Collil",99999,0,99999,0,0,0
+"Inflow_Dongo",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Dongo","HG_Dongo",99999,0,99999,0,0,0
+"Inflow_Hid_PMontt03",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_Hid_PMontt03","HG_Hid_PMontt03",99999,0,99999,0,0,0
+"released dam 1 -> HG_Los_Condores 1",1970-01-01-00:00,2060-01-01-00:00,true,released,"Emb_LMaule","HG_Los Condores",99999,0,99999,0,0,0
+"inflow Afl_LMaule -> dam 1 1",1970-01-01-00:00,2060-01-01-00:00,true,inflow,"Afl_LMaule","Emb_LMaule",99999,0,99999,0,0,0
+"turbinated HG_Ancoa",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Ancoa","HG_Robleria",99999,0,99999,0,0,0
+"turbinated HG_Pehuenche -> CMNTronco_1 1",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Pehuenche","CMNTronco_1",99999,0,99999,0,0,0
+"waterway CMNTronco_2 -> HG_Chiburgo 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CMNTronco_2","HG_Chiburgo",99999,0,99999,0,0,0
+"turbinated HG_Antuco -> hydro node 1 1",1970-01-01-00:00,2060-01-01-00:00,true,turbinated,"HG_Antuco","RIEGZACO",99999,0,99999,0,0,0
+"waterway RIEGZACO",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"RIEGZACO","CLAJRUCUE",99999,0,99999,0,0,0
+"waterway CLAJRUCUE -> HG_Rucue 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CLAJRUCUE","HG_Rucue",120,0,99999,0,0,0
+"waterway Balance_Tucapel -> HG_ElDiuto 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Balance_Tucapel","HG_El Diuto",99999,0,99999,0,0,0
+"waterway Balance_Tucapel -> Canal_Laja 1",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"Balance_Tucapel","Canal_Laja",99999,0,99999,0,0,0
+"overflow Emb_Pehuenche",1970-01-01-00:00,2060-01-01-00:00,true,overflow,"Emb_Pehuenche","CMNTronco_1",99999,0,99999,0,0,0
+"spilled HG_Antuco -> RIEGZACO 1",1970-01-01-00:00,2060-01-01-00:00,true,spilled,"HG_Antuco","RIEGZACO",99999,0,99999,0,0,0
+"waterway CANCHAC",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANCHAC","HG_Chacabuquito",99999,0,99999,0,0,0
+"waterway CANBLANCO",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"CANBLANCO","HG_Blanco",99999,0,99999,0,0,0
+"rLagunas",1970-01-01-00:00,2060-01-01-00:00,true,released,"Lagunas","HG_BG01_Lagunas",99999,0,99999,0,0,0
+"rParinacota",1970-01-01-00:00,2060-01-01-00:00,true,released,"Parinacota","HG_BG02_Parinacota",99999,0,99999,0,0,0
+"rTarapaca",1970-01-01-00:00,2060-01-01-00:00,true,released,"Tarapaca","HG_BG03_Tarapaca",99999,0,99999,0,0,0
+"rChacaya",1970-01-01-00:00,2060-01-01-00:00,true,released,"Chacaya","HG_BG04_Chacaya",99999,0,99999,0,0,0
+"pParinacota",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"MAR","HG_BG02_Parinacota",99999,0,99999,0,0,0
+"pLagunas",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"MAR","HG_BG01_Lagunas",99999,0,99999,0,0,0
+"pTarapaca",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"MAR","HG_BG03_Tarapaca",99999,0,99999,0,0,0
+"pChacaya",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"MAR","HG_BG04_Chacaya",99999,0,99999,0,0,0
+"pLagunas2",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HG_BG01_Lagunas","Lagunas",99999,0,99999,0,0,0
+"pTarapaca2",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HG_BG03_Tarapaca","Tarapaca",99999,0,99999,0,0,0
+"pChacaya2",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HG_BG04_Chacaya","Chacaya",99999,0,99999,0,0,0
+"pParinacota2",1970-01-01-00:00,2060-01-01-00:00,true,waterway,"HG_BG02_Parinacota","Parinacota",99999,0,99999,0,0,0
+"inflow Afl_B_LaMina",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_B_LaMina","HG_La Mina",99999,0,99999,0,0,0
+"inflow Afl_CANCOLOR",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_CANCOLOR","HG_Los Quilos",99999,0,99999,0,0,0
+"inflow Afl_HLCTinguiririca",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_HLCTinguiririca","HG_La Higuera",99999,0,99999,0,0,0
+"filtrated Emb_Colbun -> CMNTronco_2 1",1970-01-01-00:00,2050-01-01-00:00,true,filtrated,"Emb_Colbun","CMNTronco_2",99999,0,99999,0,0,0
+"waterway Emb_Colbun -> CMNTronco_2 1",1970-01-01-00:00,2050-01-01-00:00,true,waterway,"Emb_Colbun","CMNTronco_2",99999,0,99999,0,0,0
+"irrigation CMNTronco_2 -> Irrigation_CMNTronco_2 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"CMNTronco_2","Irrigation_CMNTronco_2",99999,0,99999,0,0,0
+"turbinated HG_Machicura -> Sur123_SCDZ 1",1970-01-01-00:00,2050-01-01-00:00,true,turbinated,"HG_Machicura","Sur123_SCDZ",99999,0,99999,0,0,0
+"spilled HG_Machicura -> Sur123_SCDZ 1",1970-01-01-00:00,2050-01-01-00:00,true,spilled,"HG_Machicura","Sur123_SCDZ",99999,0,99999,0,0,0
+"waterway Sur123_SCDZ -> HG_SanIgnacio 1",1970-01-01-00:00,2050-01-01-00:00,true,waterway,"Sur123_SCDZ","HG_San Ignacio",99999,0,99999,0,0,0
+"irrigation Balance_Tucapel -> Irrigation_CANAL_LAJA 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"Balance_Tucapel","Irrigation_CANAL_LAJA",99999,0,99999,0,0,0
+"irrigation RIEGZACO -> Irrigation_RIEGZACO 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"RIEGZACO","Irrigation_RIEGZACO",99999,0,99999,0,0,0
+"irrigation C_Melado -> Irrigation_C_Melado 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"C_Melado","Irrigation_C_Melado",99999,0,99999,0,0,0
+"irrigation CMNTronco_1 -> Irrigation_CMNTronco_1 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"CMNTronco_1","Irrigation_CMNTronco_1",99999,0,99999,0,0,0
+"irrigation Sur123_SCDZ -> Irrigation_Sur123_SCDZ 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"Sur123_SCDZ","Irrigation_Sur123_SCDZ",99999,0,99999,0,0,0
+"irrigation Sur123_SCDZ -> Irrigation_Ribera_Sur 1",1970-01-01-00:00,2050-01-01-00:00,true,irrigation,"Sur123_SCDZ","Irrigation_Ribera_Sur",99999,0,99999,0,0,0
+"inflow Afl_CH Bonito 1",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_CH Bonito 1","HG_CH Bonito 1",99999,0,99999,0,0,0
+"inflow Afl_CH Bonito 2",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_CH Bonito 2","HG_CH Bonito 2",99999,0,99999,0,0,0
+"inflow Afl_Dos Valles",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Dos Valles","HG_Dos Valles",99999,0,99999,0,0,0
+"inflow Afl_Guayacan_am",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Guayacan_am","HG_Guayacan_am",99999,0,99999,0,0,0
+"inflow Afl_Palmar + Correntoso",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Palmar + Correntoso","HG_Palmar + Correntoso",99999,0,99999,0,0,0
+"inflow Afl_Hidromocho",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Hidromocho","HG_Hidromocho",99999,0,99999,0,0,0
+"inflow Afl_La Monta�a",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_La Monta�a","HG_La Monta�a",99999,0,99999,0,0,0
+"inflow Afl_La Monta�a 2",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_La Monta�a 2","HG_La Monta�a 2",99999,0,99999,0,0,0
+"inflow Afl_Laja I_rbc",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Laja I_rbc","HG_Laja I_rbc",99999,0,99999,0,0,0
+"inflow Afl_Maitenes_am",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Maitenes_am","HG_Maitenes_am",99999,0,99999,0,0,0
+"inflow Afl_Munilque 1",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Munilque 1","HG_Munilque 1",99999,0,99999,0,0,0
+"inflow Afl_Munilque 2",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Munilque 2","HG_Munilque 2",99999,0,99999,0,0,0
+"inflow Afl_Confluencia_RBC",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Confluencia_RBC","HG_Confluencia_RBC",99999,0,99999,0,0,0
+"inflow Afl_El Paso_RBC",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_El Paso_RBC","HG_El Paso_RBC",99999,0,99999,0,0,0
+"inflow Afl_La Higuera_RBC",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_La Higuera_RBC","HG_La Higuera_RBC",99999,0,99999,0,0,0
+"inflow Afl_Palacios_RBC",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Palacios_RBC","HG_Palacios_RBC",99999,0,99999,0,0,0
+"inflow Afl_San Andres_RBC",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_San Andres_RBC","HG_San Andres_RBC",99999,0,99999,0,0,0
+"inflow Afl_La Confianza",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_La Confianza","HG_La Confianza",99999,0,99999,0,0,0
+"inflow Afl_Digua",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Digua","HG_Digua",99999,0,99999,0,0,0
+"inflow Afl_MCH Aill�n",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_MCH Aill�n","HG_MCH Aill�n",99999,0,99999,0,0,0
+"inflow Afl_Alfalfal Ampl",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Alfalfal Ampl","HG_Alfalfal Ampl",99999,0,99999,0,0,0
+"inflow Afl_Hidrori�inahue Ampl",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Hidrori�inahue Ampl","HG_Hidrori�inahue Ampl",99999,0,99999,0,0,0
+"inflow Afl_Ampliaci�n CH Dos Valles",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Ampliaci�n CH Dos Valles","HG_Ampliaci�n CH Dos Valles",99999,0,99999,0,0,0
+"inflow Afl_Central Hidroel�ctrica Corrales",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Central Hidroel�ctrica Corrales","HG_Central Hidroel�ctrica Corrales",99999,0,99999,0,0,0
+"inflow Afl_PMGD CH El Atajo",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_PMGD CH El Atajo","HG_PMGD CH El Atajo",99999,0,99999,0,0,0
+"inflow Afl_PMGD CH Chilco",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_PMGD CH Chilco","HG_PMGD CH Chilco",99999,0,99999,0,0,0
+"inflow Afl_CH Los Lagos",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_CH Los Lagos","HG_CH Los Lagos",99999,0,99999,0,0,0
+"inflow Afl_CH Alto Bonito",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_CH Alto Bonito","HG_CH Alto Bonito",99999,0,99999,0,0,0
+"inflow Afl_Central Hidroel�ctrica Punta del Viento",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Central Hidroel�ctrica Punta del Viento","HG_Central Hidroel�ctrica Punta del Viento",99999,0,99999,0,0,0
+"inflow Afl_ALTO_HOSPICIO",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_ALTO_HOSPICIO","HG_ALTO_HOSPICIO",99999,0,99999,0,0,0
+"inflow Afl_EL_TORO_N2",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_EL_TORO_N2","HG_EL_TORO_N2",99999,0,99999,0,0,0
+"inflow Afl_SANTA_ROSA",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_SANTA_ROSA","HG_SANTA_ROSA",99999,0,99999,0,0,0
+"inflow Afl_MCH Cosapilla",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_MCH Cosapilla","HG_MCH Cosapilla",99999,0,99999,0,0,0
+"inflow Afl_Hidroel�ctrica Piedras Negras",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Hidroel�ctrica Piedras Negras","HG_Hidroel�ctrica Piedras Negras",99999,0,99999,0,0,0
+"inflow Afl_Central Hidroel�ctrica Moraga",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Central Hidroel�ctrica Moraga","HG_Central Hidroel�ctrica San Luis",99999,0,99999,0,0,0
+"inflow Afl_Central Hidroel�ctrica San Luis",1970-01-01-00:00,2050-01-01-00:00,true,inflow,"Afl_Central Hidroel�ctrica San Luis","HG_Central Hidroel�ctrica San Jos�",99999,0,99999,0,0,0

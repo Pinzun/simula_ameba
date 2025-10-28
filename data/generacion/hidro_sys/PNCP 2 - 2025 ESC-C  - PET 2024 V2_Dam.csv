@@ -1,0 +1,14 @@
+name,start_time,end_time,report,vmax,vmin,vini,vend,scale,non_physical_inflow,non_physical_inflow_penalty,filt_avg,use_fcf,cond_ovf,vol_ovf,val_ovf,filt_poly,candidate,owner
+"Emb_Rapel",1970-01-01-00:00,2060-01-01-00:00,true,563.2,272,453.04,417.76,6,true,80000,0,true,true,563.2,100,0,false,None
+"Emb_Ralco",1970-01-01-00:00,2060-01-01-00:00,true,1173.29,409.41,503.77,791.35,6,true,80000,0,true,true,1173.29,100,0,false,None
+"Emb_Colbun",1970-01-01-00:00,2060-01-01-00:00,true,1553.25,381.62,1080.11,967.44,6,true,80000,0,true,true,1553.25,100,0,false,None
+"Emb_Cipreses",1970-01-01-00:00,2060-01-01-00:00,true,174.66,4.72,169.13,89.69,6,true,80000,0,true,true,174.66,100,0,false,None
+"Emb_Pangue",1970-01-01-00:00,2060-01-01-00:00,true,71.96,30.81,62.3,51.38,6,true,80000,0,true,true,71.96,100,0,false,None
+"Emb_ElToro",1970-01-01-00:00,2060-01-01-00:00,true,5585.89,0,1300.7,2792.94,6,true,80000,0,true,true,5585.89,100,0,false,None
+"Emb_Canutillar",1970-01-01-00:00,2060-01-01-00:00,true,1065.38,89.95,422.75,577.66,6,true,80000,0,true,true,1065.38,100,0,false,None
+"Emb_Pehuenche",1970-01-01-00:00,2060-01-01-00:00,true,133.64,106.58,106.62,120.11,6,true,80000,0,true,true,133.64,100,0,false,None
+"Emb_LMaule",1970-01-01-00:00,2060-01-01-00:00,true,1453.41,0,408.97,726.7,6,true,80000,0,true,true,1453.41,100,0,false,None
+"Lagunas",1970-01-01-00:00,2060-01-01-00:00,true,8.64,0,0,0,6,false,0,0,false,false,0,0,0,false,None
+"Parinacota",1970-01-01-00:00,2060-01-01-00:00,true,8.64,0,0,0,6,false,0,0,false,false,0,0,0,false,None
+"Tarapaca",1970-01-01-00:00,2060-01-01-00:00,true,8.64,0,0,0,6,false,0,0,false,false,0,0,0,false,None
+"Chacaya",1970-01-01-00:00,2060-01-01-00:00,true,8.64,0,0,0,6,false,0,0,false,false,0,0,0,false,None

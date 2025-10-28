@@ -1,0 +1,280 @@
+name,start_time,end_time,report,inflows_qm3,plp_indep_hydro
+"Afl_ABANICO",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LMaule",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_SanIgnacio",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Los_Condores",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Blanco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_SanClemente",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Robleria",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_OjosdeAgua",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Chacabuquito",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Chiburgo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Pehuenche",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Machicura",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosHierros2",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosHierros",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Rucue",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Palmucho",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosQuilos",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LomaAlta",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Quilleco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Juncal",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Juncalito",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Isla",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hornitos",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaConfluencia",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaHiguera",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_CANHORN",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_CANECOL",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Curillinque",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Colbun",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_CMNTronco_1",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Angostura",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_CANBLANCO",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_B_Maule",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_B_M_Isla",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Antuco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Ralco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Pangue",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Laja1",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Rio_Melado",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Rapel",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_HLC_Portillo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElToro",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaMina",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_HLH_Tinguiririca",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_HLH_Azufre",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Canutillar",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Rio_Teno",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Cipreses",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_A_Chacayes",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Cipreses_Chac",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ALTORENAICO",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Boquiamargo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Bureo",1970-01-01-00:00,2060-01-01-00:00,true,1.319648641,false
+"Afl_Caliboro",1970-01-01-00:00,2060-01-01-00:00,true,0.8694,false
+"Afl_ElDiuto",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElMirador",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Itata",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaBifurcada",1970-01-01-00:00,2060-01-01-00:00,true,0.135563906,false
+"Afl_LaVina",1970-01-01-00:00,2060-01-01-00:00,true,0.331111841,false
+"Afl_Lleuquereo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosPadres",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Mampil",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Melo",1970-01-01-00:00,2060-01-01-00:00,true,1.8414,false
+"Afl_Peuchen",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_PMGDMulchen",1970-01-01-00:00,2060-01-01-00:00,true,1.799520874,false
+"Afl_Quillaileo",1970-01-01-00:00,2060-01-01-00:00,true,0.497916834,false
+"Afl_Renaico",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_RioPicoiquen",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_PMGDSantaIsabel",1970-01-01-00:00,2060-01-01-00:00,true,0.8694,false
+"Afl_ElBrinco",1970-01-01-00:00,2060-01-01-00:00,true,0.11955,false
+"Afl_El_Pinar",1970-01-01-00:00,2060-01-01-00:00,true,6.838179324,false
+"Afl_Nuble",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_San_Pedro_Hidro",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Trupan",1970-01-01-00:00,2060-01-01-00:00,true,11.99680583,false
+"Afl_Hid_Ancoa01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa06",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa07",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa08",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa09",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa10",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa11",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa12",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa13",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa14",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa15",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa16",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa17",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa19",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa20",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Ancoa18",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua03",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua05",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Charrua06",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin15",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin06",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen05",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen06",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen08",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen09",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen11",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen13",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen14",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen15",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen16",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Ancoa",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Cumpeo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_DosValles",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElGalpon",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElPaso",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Lircay",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Mariposas",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_MCHDosal",1970-01-01-00:00,2060-01-01-00:00,true,0.16199757,false
+"Afl_Providencia",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Purisima",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_RioColorado",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_SanAndres",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Convento_Viejo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ALFALFAL",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Arrayan",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_AuxiliardelMaipo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Carena",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Coya",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElLlano",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElManzano",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElRincon",1970-01-01-00:00,2060-01-01-00:00,true,0.17337399,false
+"Afl_ElTartaro",1970-01-01-00:00,2060-01-01-00:00,true,0.06239844,false
+"Afl_Eyzaguirre",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Florida",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Guayacan",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LasVertientes",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosBajos",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosMorros",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Maitenes",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Mallarauco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Puntilla",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Queltehues",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_SauceAndes",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Sauzal",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Sauzalito",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Volcan",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Alfalfal_2",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Las_Lajas",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Palacios",1970-01-01-00:00,2060-01-01-00:00,true,2.159892,false
+"Afl_Vina_Tarapaca",1970-01-01-00:00,2060-01-01-00:00,true,0.15,false
+"Afl_MCHPCipresillos",1970-01-01-00:00,2060-01-01-00:00,true,5.398562622,false
+"Afl_Hid_Candelaria01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Candelaria04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Candelaria05",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Rapel02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Polpaico01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaPaloma",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosMolles",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Puclaro",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_RioHuasco",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_CAVANCHA",1970-01-01-00:00,2060-01-01-00:00,true,1.679552816,false
+"Afl_CHAPIQUINA",1970-01-01-00:00,2060-01-01-00:00,true,6.536028,false
+"Afl_ALLIPEN",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Carilafquen",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Donguil",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElAgrio",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElCanelo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Maisan",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Malalcahuello",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_RioTrueno",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_SantaElena",1970-01-01-00:00,2060-01-01-00:00,true,1.649921052,false
+"Afl_Trufultruful",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Las_Nieves",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin03",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin07",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin08",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin09",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin10",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin11",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin12",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin14",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin16",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Cautin17",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Mulchen01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Callao",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Contra",1970-01-01-00:00,2060-01-01-00:00,true,0.197988,false
+"Afl_Curileufu",1970-01-01-00:00,2060-01-01-00:00,true,0.132564704,false
+"Afl_DonWalterio",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_DonaHilda",1970-01-01-00:00,2060-01-01-00:00,true,0.2519937,false
+"Afl_ElArrayan",1970-01-01-00:00,2060-01-01-00:00,true,0.089976044,false
+"Afl_Hidrorininahue",1970-01-01-00:00,2060-01-01-00:00,true,0.5994,false
+"Afl_LasFlores",1970-01-01-00:00,2060-01-01-00:00,true,0.959744466,false
+"Afl_Lican",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosColonos",1970-01-01-00:00,2060-01-01-00:00,true,0.385097467,false
+"Afl_LosCorrales",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LosCorrales2",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_MariaElena",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_MolineraVillarrica",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Muchi",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Nalcas",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Panguipulli",1970-01-01-00:00,2060-01-01-00:00,true,0.209944102,false
+"Afl_Pehui",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Pichilonco",1970-01-01-00:00,2060-01-01-00:00,true,0.7197,false
+"Afl_Pilmaiquen",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Piutel",1970-01-01-00:00,2060-01-01-00:00,true,0.47856,false
+"Afl_Pulelfu",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Pullinque",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Reca",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Rucatayo",1970-01-01-00:00,2060-01-01-00:00,true,35.6988,false
+"Afl_Trailelfu",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Tranquil",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_MSA_1",1970-01-01-00:00,2060-01-01-00:00,true,1.79994,false
+"Afl_Cumbres",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli10",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli03",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli05",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli06",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli07",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli08",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli09",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Pichirropulli11",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Valdivia01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Rahue01",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Rahue02",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Rahue03",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_Rahue04",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Capullo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Chanleufu",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_ElColorado",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Ensenada",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_LaArena",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Collil",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Dongo",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_Hid_PMontt03",1970-01-01-00:00,2060-01-01-00:00,true,0,false
+"Afl_B_LaMina",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_CANCOLOR",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_HLCTinguiririca",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_CH Bonito 1",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_CH Bonito 2",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Dos Valles",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Guayacan_am",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Palmar + Correntoso",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Hidromocho",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_La Monta�a",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_La Monta�a 2",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Laja I_rbc",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Maitenes_am",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Munilque 1",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Munilque 2",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Confluencia_RBC",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_El Paso_RBC",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_La Higuera_RBC",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Palacios_RBC",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_San Andres_RBC",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_La Confianza",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Digua",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_MCH Aill�n",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Alfalfal Ampl",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Hidrori�inahue Ampl",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Ampliaci�n CH Dos Valles",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Central Hidroel�ctrica Corrales",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_PMGD CH El Atajo",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_PMGD CH Chilco",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_CH Los Lagos",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_CH Alto Bonito",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Central Hidroel�ctrica Punta del Viento",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_ALTO_HOSPICIO",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_EL_TORO_N2",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_SANTA_ROSA",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_MCH Cosapilla",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Hidroel�ctrica Piedras Negras",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Central Hidroel�ctrica Moraga",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Central Hidroel�ctrica San Jos�",1970-01-01-00:00,2050-01-01-00:00,true,0,false
+"Afl_Central Hidroel�ctrica San Luis",1970-01-01-00:00,2050-01-01-00:00,true,0,false
