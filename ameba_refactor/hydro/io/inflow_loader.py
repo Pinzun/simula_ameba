@@ -7,7 +7,7 @@ import math
 import pandas as pd
 
 from hydro.core.types import InflowRow, IrrigationRow, InflowSeries
-from core.types import CalendarData, TimeIndex  # CalendarData.blocks tiene: stage, block, time (str o datetime), duration_h
+from hydro.core.calendar_types import CalendarData, TimeIndex  # CalendarData.blocks tiene: stage, block, time (str o datetime), duration_h
 
 # ===================== Helpers =====================
 def _require_columns(df: pd.DataFrame, cols: List[str], tag: str) -> None:
@@ -28,6 +28,40 @@ def _to_bool(x: Any, default: bool = False) -> bool:
         return default
     s = str(x).strip().lower()
     return s in {"true", "1", "t", "yes", "y", "si", "sí"}
+
+
+# --- helper: detectar y convertir formato ancho a largo ---
+def _wide_to_long_inflows(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Convierte un DataFrame ancho (time, [scenario?], afl_*) a largo con columnas:
+      time, name, flow_m3s
+    - Detecta columnas que empiezan con afl_ (en cualquier casing)
+    - Normaliza name a minúsculas
+    """
+    cols = [str(c) for c in df.columns]
+    # columnas inflow: prefijos típicos
+    inflow_cols = [c for c in cols if c.lower().startswith("afl_")]
+    if not inflow_cols:
+        # no hay columnas afl_*, no podemos convertir
+        return df
+
+    id_vars = [c for c in cols if c not in inflow_cols]
+    long = df.melt(id_vars=id_vars, value_vars=inflow_cols,
+                   var_name="name", value_name="flow_m3s")
+
+    # normalización
+    long["name"] = long["name"].astype(str).str.strip().str.lower()
+    # coerce numérico
+    long["flow_m3s"] = pd.to_numeric(long["flow_m3s"], errors="coerce")
+
+    # aseguremos columnas mínimas y orden
+    keep = ["time", "name", "flow_m3s"]
+    # si 'time' no existe porque venía con otro nombre, ahí sí fallamos de forma explícita
+    if "time" not in long.columns:
+        raise ValueError("[InflowSeries] No se encontró columna 'time' al convertir ancho→largo.")
+
+    return long[keep]
+
 
 # ===================== Metadatos (tablas cortas) =====================
 def load_inflow_nodes(path: Path) -> List[InflowRow]:
@@ -78,18 +112,35 @@ def load_irrigation_nodes(path: Path) -> List[IrrigationRow]:
 # ===================== Serie horaria larga =====================
 def load_inflow_series_long(path_ts: Path) -> List[InflowSeries]:
     """
-    Espera un CSV con columnas: time,name,flow_m3s
-    Convierte a hm3/h y entrega una lista de series por 'name'.
+    Acepta:
+      1) Formato largo: columnas = time, name, flow_m3s
+      2) Formato ancho: columnas = time, [scenario], afl_* (una por nodo)
+
+    Devuelve lista de InflowSeries (name→serie horaria en hm3/h).
     """
     tag = "InflowSeries"
     df = pd.read_csv(path_ts)
-    df.columns = [c.strip().lower() for c in df.columns]
-    _require_columns(df, ["time", "name", "flow_m3s"], tag)
+    df.columns = [c.strip() for c in df.columns]
 
-    # Parseo estricto de la columna de tiempo
-    df["time"] = df["time"].map(lambda s: _to_dt_strict(s, tag, "time"))
-    # Convertir m3/s → hm3/h  (1 m3/s = 3600 m3/h = 3.6e-3 hm3/h)
-    df["hm3_per_h"] = df["flow_m3s"].astype(float) * 3600.0 / 1_000_000.0
+    cols = set(df.columns)
+    # Si falta largo, intentamos ancho→largo
+    if not ({"time", "name", "flow_m3s"} <= cols):
+        df = _wide_to_long_inflows(df)
+        cols = set(df.columns)
+
+    # Validación final
+    need = {"time", "name", "flow_m3s"}
+    miss = [c for c in need if c not in cols]
+    if miss:
+        raise ValueError(f"[{tag}] faltan columnas: {miss}. Presentes: {list(df.columns)}")
+
+    # Parseo de tiempo y normalización de nombre
+    df["time"] = pd.to_datetime(df["time"], errors="raise")
+    df["name"] = df["name"].astype(str).str.strip().str.lower()
+    df["flow_m3s"] = pd.to_numeric(df["flow_m3s"], errors="coerce").fillna(0.0)
+
+    # m3/s → hm3/h
+    df["hm3_per_h"] = df["flow_m3s"] * 3600.0 / 1_000_000.0
 
     out: List[InflowSeries] = []
     for name, g in df.groupby("name", sort=False):
@@ -100,45 +151,86 @@ def load_inflow_series_long(path_ts: Path) -> List[InflowSeries]:
         ))
     return out
 
+
 # ===================== Agregación a bloques =====================
-def aggregate_inflows_to_blocks(calendar: CalendarData,
-                                series: List[InflowSeries]) -> Dict[Tuple[str, TimeIndex], float]:
+def aggregate_inflows_to_blocks(calendar, series, verbose: bool = True) -> Dict[Tuple[str, Tuple[int, int]], float]:
     """
-    Suma hm3/h de cada serie a nivel de bloque (y,t) usando el calendario extendido.
-    Importante:
-      - El calendario provee filas por cada hora con su (stage, block) ya asignado.
-      - Si un bloque dura 2 horas, la suma por (stage,block) acumula las 2 filas/horas.
-    Retorna: {(node, (stage, block)) -> hm3/bloque}
+    Agrega inflows a (y,t) en Hm3/bloque.
+    Soporta ambos formatos de 'series':
+      A) punto a punto:   s.name, s.time, s.flow_m3s  (m3/s por hora)
+      B) serie por nodo:  s.name, s.times, s.flow_hm3_per_hour  (Hm3/h)
     """
-    # Mapa de timestamp exacto → (stage, block)
-    # calendar.blocks puede tener 'time' como str o datetime; normalizamos a Timestamp
-    times_to_yt: Dict[pd.Timestamp, TimeIndex] = {}
-    for b in calendar.blocks:
-        bt = pd.to_datetime(getattr(b, "time"), format="%Y-%m-%d-%H:%M", errors="coerce")
-        if pd.isna(bt):
-            # Si ya viene como datetime, reintenta sin formato
-            bt = pd.to_datetime(getattr(b, "time"), errors="coerce")
-        if pd.isna(bt):
-            raise ValueError(f"[CalendarData] bloque con 'time' inválido: {getattr(b, 'time')!r}")
-        times_to_yt[pd.Timestamp(bt)] = (int(getattr(b, "stage")), int(getattr(b, "block")))
 
-    agg: Dict[Tuple[str, TimeIndex], float] = {}
-    missed = 0
+    # --- 1) Horas del calendario: aceptar DataFrame o lista de objetos ---
+    B = calendar.blocks
+    if isinstance(B, pd.DataFrame):
+        A = B.copy()
+    else:
+        # Asumimos lista de objetos con atributos: stage, block, time (y opcional duration_h)
+        A = pd.DataFrame(
+            {
+                "stage": [getattr(b, "stage") for b in B],
+                "block": [getattr(b, "block") for b in B],
+                "time":  [getattr(b, "time")  for b in B],
+                "duration_h": [getattr(b, "duration_h", 2.0) for b in B],
+            }
+        )
 
+    # Normalización de tiempo a granularidad horaria
+    A["time"] = pd.to_datetime(A["time"], errors="coerce")
+    A = A.dropna(subset=["time"])
+    A["time"] = A["time"].dt.floor("h")
+
+    t_min = A["time"].min()
+    t_max = A["time"].max()
+
+    # --- 2) Aplanar series (el resto de tu función sigue igual) ---
+    if not series:
+        return {}
+
+    rows: List[Dict[str, Any]] = []
     for s in series:
-        for tm, q in zip(s.times, s.flow_hm3_per_hour):
-            tm = pd.Timestamp(tm)
-            yt = times_to_yt.get(tm)
-            if yt is None:
-                # La hora de la serie no existe en el calendario (distinta granularidad o ventana).
-                # No abortamos; solo contamos para diagnóstico.
-                missed += 1
+        if hasattr(s, "times") and hasattr(s, "flow_hm3_per_hour"):  # formato B
+            for t, q_hm3h in zip(getattr(s, "times"), getattr(s, "flow_hm3_per_hour")):
+                rows.append({"name": s.name, "time": t, "hm3_h": float(q_hm3h)})
+        else:  # formato A
+            t = getattr(s, "time", None)
+            if t is None:
                 continue
-            key = (s.name, yt)
-            agg[key] = agg.get(key, 0.0) + float(q)
+            if hasattr(s, "flow_m3s"):  # m3/s -> Hm3/h
+                q_hm3h = float(getattr(s, "flow_m3s")) * 3600.0 / 1e6
+            else:
+                q_hm3h = float(getattr(s, "hm3_per_h", 0.0))
+            rows.append({"name": s.name, "time": t, "hm3_h": q_hm3h})
 
-    if missed:
-        # Mensaje suave para depurar desalineaciones (p.ej., horas fuera de stages)
-        print(f"[aggregate_inflows_to_blocks] Advertencia: {missed} timestamps de inflow no calzaron con el calendario.")
+    if not rows:
+        return {}
 
-    return agg
+    df = pd.DataFrame(rows)
+    df["name"] = df["name"].astype(str).str.strip().str.lower()
+    df["time"] = pd.to_datetime(df["time"], errors="coerce").dt.floor("h")
+    df = df.dropna(subset=["time"])
+
+    pre_len = len(df)
+    df = df[(df["time"] >= t_min) & (df["time"] <= t_max)]
+    cut_len = pre_len - len(df)
+
+    joined = df.merge(A[["stage", "block", "time"]], on="time", how="inner")
+
+    gb = (joined.groupby(["name", "stage", "block"], as_index=False)["hm3_h"]
+                 .sum()
+                 .rename(columns={"hm3_h": "hm3_block"}))
+
+    out = { (str(r.name), (int(r.stage), int(r.block))) : float(r.hm3_block)
+            for r in gb.itertuples(index=False) }
+
+    if verbose:
+        n_in = pre_len
+        n_joined = len(joined)
+        n_dropped_by_join = n_in - n_joined - cut_len
+        print(f"[aggregate_inflows_to_blocks] "
+              f"input={n_in:,}  recortados_por_rango={cut_len:,}  "
+              f"no_coinciden_con_grilla={max(n_dropped_by_join,0):,}  "
+              f"salida_pairs={(len(out)):,}")
+
+    return out

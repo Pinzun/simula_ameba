@@ -103,53 +103,11 @@ class DemandStore:
 
     # -------------------- Agregaciones por bloque --------------------
 
-    def _calendar_hours_df(self, calendar: ModelCalendar) -> pd.DataFrame:
-        """
-        Devuelve un DataFrame con columnas: stage, block, time (Timestamp).
-        Usa calendar.hours_df() si existe; si no, lo construye desde calendar.blocks.
-        """
-        # 1) Si el calendario ya expone hours_df(), úsalo.
-        if hasattr(calendar, "hours_df") and callable(getattr(calendar, "hours_df")):
-            A = calendar.hours_df().copy()
-            # normaliza nombres esperados
-            rename = {}
-            if "k" in A.columns: rename["k"] = "stage"
-            if "t" in A.columns: rename["t"] = "block"
-            if "time_str" in A.columns: rename["time_str"] = "time"
-            A = A.rename(columns=rename)
-            if "time" not in A.columns and "time_str" in A.columns:
-                A["time"] = A["time_str"]
-            A["time"] = pd.to_datetime(A["time"], errors="raise")
-            need = {"stage", "block", "time"}
-            miss = [c for c in need if c not in set(A.columns)]
-            if miss:
-                raise AssertionError(f"[calendar.hours_df] faltan columnas {miss} (esperadas {sorted(need)})")
-            return A[["stage", "block", "time"]].copy()
-
-        # 2) Fallback: construir desde calendar.blocks
-        if not hasattr(calendar, "blocks"):
-            raise AssertionError("[DemandStore] calendar no tiene ni hours_df() ni atributo 'blocks'")
-
-        rows = []
-        for b in getattr(calendar, "blocks"):
-            # Soporta ambas variantes que hemos usado:
-            # (a) atributos stage, block, time (string)  ← NUEVO
-            # (b) atributos y, t, time_str               ← LEGADO
-            if hasattr(b, "stage") and hasattr(b, "block") and hasattr(b, "time"):
-                stage = int(getattr(b, "stage"))
-                block = int(getattr(b, "block"))
-                tstr  = str(getattr(b, "time"))
-            elif hasattr(b, "y") and hasattr(b, "t") and hasattr(b, "time_str"):
-                stage = int(getattr(b, "y"))
-                block = int(getattr(b, "t"))
-                tstr  = str(getattr(b, "time_str"))
-            else:
-                raise AssertionError("[DemandStore] No reconozco la estructura de un Block del calendario.")
-
-            rows.append({"stage": stage, "block": block, "time": pd.to_datetime(tstr, errors="raise")})
-
-        A = pd.DataFrame(rows).drop_duplicates().sort_values(["stage", "block", "time"])
-        return A
+    def _calendar_hours_df(self, calendar) -> pd.DataFrame:
+        A = calendar.hours_df().copy()  # ← trae ['stage','block','time','time_str']
+        # Asegura tipos (por si el calendar cambiara en otra rama)
+        A["time"] = pd.to_datetime(A["time"], errors="raise")
+        return A[["stage", "block", "time"]]
 
     def build_by_block(
         self,
@@ -159,33 +117,18 @@ class DemandStore:
         """
         Agrega demanda por bloque (suma de las horas que caen en ese bloque).
         Devuelve: {(stage, block): {busbar: MW_sum}}
-
-        Reglas:
-        - La agregación es *suma* de las horas del bloque (no promedio).
-        - Si alguna hora de un bloque no está en la serie, puede:
-            * fill_missing_as_zero=True: tratarla como 0
-            * False: se deja NaN y la suma ignora esa hora (aviso opcional)
-        - Si hay múltiples L_* que mapean al mismo busbar, se suman.
         """
-        # 1) Detalle horario calendario (stage, block, time)
-        A = self._calendar_hours_df(calendar)
+        # 1) Horas del calendario con (stage, block)
+        A = self._calendar_hours_df(calendar)  # ← debe devolver ['stage','block','time'] con time=Timestamp
 
-        # 2) Join por tiempo
+        # 2) Join con la matriz horaria L_* (index=time)
         H = self.hourly_wide
-        joined = A.merge(
-            H.reset_index(),  # time + L_*
-            on="time",
-            how="left",
-        )
+        joined = A.merge(H.reset_index(), on="time", how="left")
 
-        if fill_missing_as_zero:
-            joined.loc[:, [c for c in joined.columns if c.startswith("L_")]] = \
-                joined[[c for c in joined.columns if c.startswith("L_")]].fillna(0.0)
-
-        # 3) L_* → busbar (sumando cargas que comparten bus por HORA)
+        # 3) Mapeo L_* → busbar
         mapped_cols = [c for c in H.columns if c in self.load_to_bus]
         if not mapped_cols:
-            raise AssertionError("[DemandStore] No hay columnas L_* mapeadas a busbar en load.csv / load_df")
+            raise AssertionError("[DemandStore] No hay columnas L_* mapeadas a busbar en load.csv")
 
         bus_to_lcols: Dict[str, list] = {}
         for lcol in mapped_cols:
@@ -194,25 +137,53 @@ class DemandStore:
                 continue
             bus_to_lcols.setdefault(bus, []).append(lcol)
 
+        # 4) Para cada bus, suma de sus L_* por hora (con coerción numérica) y luego suma por (stage,block)
         pieces = []
         for bus, cols in bus_to_lcols.items():
+            # Por si alguna vez cols viniera como string
+            if isinstance(cols, str):
+                cols = [cols]
+
+            # Mantén solo las columnas que realmente están en el join
+            cols = [c for c in cols if c in joined.columns]
+            if not cols:
+                # Si no hay ninguna columna L_* para este bus en el join, saltamos
+                continue
+
             sub = joined[["stage", "block"] + cols].copy()
-            sub["MW_bus"] = pd.to_numeric(sub[cols], errors="coerce").fillna(0.0).sum(axis=1)
-            # suma de horas del bloque → por (stage,block)
+
+            # Conversión numérica columna a columna (DataFrame → aplicar por Series)
+            sub_num = sub[cols].apply(pd.to_numeric, errors="coerce")
+
+            # Si falta algún dato horario:
+            if fill_missing_as_zero:
+                sub_num = sub_num.fillna(0.0)
+
+            # Suma por fila (misma hora) de todas las L_* que alimentan ese bus
+            # min_count=1 evita que todo NaN dé 0 silenciosamente cuando fill_missing_as_zero=False
+            sub["MW_bus"] = sub_num.sum(axis=1, min_count=1)
+
+            if fill_missing_as_zero:
+                sub["MW_bus"] = sub["MW_bus"].fillna(0.0)
+
+            # Agrega por bloque (suma de horas del bloque, NO promedio)
             sub = sub.groupby(["stage", "block"], as_index=False)["MW_bus"].sum()
+
+            # Renombra a bus para el merge horizontal posterior
             sub = sub.rename(columns={"MW_bus": bus})
             pieces.append(sub)
 
         if not pieces:
             return {}
 
+        # 5) Unimos todos los buses en una tabla ancha por (stage,block)
         agg = pieces[0]
         for p in pieces[1:]:
             agg = agg.merge(p, on=["stage", "block"], how="outer")
 
-        agg = agg.fillna(0.0)
+        agg = agg.fillna(0.0) if fill_missing_as_zero else agg
 
-        # 4) Dict {(stage,block) -> {bus: MW}}
+        # 6) A dict {(stage,block) -> {bus: MW}}
         out: Dict[TimeKey, Dict[str, float]] = {}
         bus_cols = [c for c in agg.columns if c not in {"stage", "block"}]
         for r in agg.itertuples(index=False):
@@ -221,7 +192,6 @@ class DemandStore:
             out[(y, t)] = values
 
         return out
-
     # -------------------- Utilidades --------------------
 
     def buses(self) -> Iterable[str]:

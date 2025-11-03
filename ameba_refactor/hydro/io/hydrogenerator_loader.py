@@ -2,135 +2,82 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 from pathlib import Path
-from typing import List, Tuple, Dict, Any, Optional
+from typing import List, Tuple, Dict, Optional
+from dataclasses import dataclass
 import pandas as pd
-import math
+from datetime import datetime
 
 from hydro.core.types import HydroGeneratorRow, GeneratorsCatalog
 
-# ------------------- Helpers -------------------
-def _require_columns(df: pd.DataFrame, cols: List[str], tag: str) -> None:
-    miss = [c for c in cols if c not in df.columns]
-    if miss:
-        raise ValueError(f"[{tag}] faltan columnas: {miss}. Presentes: {list(df.columns)}")
-
-def _assert_unique(df: pd.DataFrame, col: str, tag: str) -> None:
-    if df[col].duplicated().any():
-        dups = df.loc[df[col].duplicated(), col].tolist()
-        raise ValueError(f"[{tag}] valores duplicados en '{col}': {sorted(set(dups))[:10]}")
-
-def _to_dt_strict(s: Any, tag: str, col: str) -> pd.Timestamp:
-    dt = pd.to_datetime(s, format="%Y-%m-%d-%H:%M", errors="coerce")
-    if pd.isna(dt):
-        raise ValueError(f"[{tag}] {col} inválido: {s!r} (esperado '%Y-%m-%d-%H:%M')")
-    return dt
-
-def _to_bool(x: Any, default: bool = False) -> bool:
-    if isinstance(x, bool):
-        return x
-    if x is None or (isinstance(x, float) and math.isnan(x)):
-        return default
-    s = str(x).strip().lower()
-    return s in {"true","1","t","yes","y","si","sí"}
-
-def _to_float(x: Any, default: float = 0.0) -> float:
-    if x is None or (isinstance(x, float) and math.isnan(x)):
-        return default
+# --- helpers de tiempo (sin límite 2262) ---
+def _to_dt_strict_py(s: Optional[str], tag: str, col: str) -> datetime:
+    """
+    Parse estricto con datetime.strptime (soporta año > 2262).
+    Espera '%Y-%m-%d-%H:%M'. Lanza ValueError si viene vacío/None o formato inválido.
+    """
+    if s is None or (isinstance(s, float) and pd.isna(s)):
+        raise ValueError(f"[{tag}] {col} vacío")
+    s = str(s).strip()
     try:
-        return float(x)
+        return datetime.strptime(s, "%Y-%m-%d-%H:%M")
     except Exception:
-        return default
+        raise ValueError(f"[{tag}] {col} inválido: {s!r} (esperado '%Y-%m-%d-%H:%M')")
 
-# ------------------- Loader -------------------
-def load_hydrogenerator(
-    path: Path,
-    r_names: Optional[List[str]] = None,   # reservado para validaciones cruzadas futuras
-    ror_prefix: str = "HG_"
-) -> Tuple[List[HydroGeneratorRow], GeneratorsCatalog]:
-    """
-    Lee HydroGenerator.csv y devuelve:
-      - Lista de HydroGeneratorRow (uno por fila de entrada)
-      - GeneratorsCatalog agregado a nivel de 'hydro_group_name'
-
-    Requeridas:
-      name,start_time,end_time,report,connected,hydro_group_name,pmax,pmin,eff,vomc_avg
-    Opcionales:
-      busbar,use_pump_mode,pmax_pump,pmin_pump
-    """
+def load_hydrogenerator(path: Path, r_names: List[str], ror_prefix: str = "HG_") -> Tuple[List[HydroGeneratorRow], GeneratorsCatalog]:
     tag = "HydroGenerator"
     df = pd.read_csv(path)
     df.columns = [c.strip().lower() for c in df.columns]
 
-    _require_columns(df,
-        ["name","start_time","end_time","report","connected",
-         "hydro_group_name","pmax","pmin","eff","vomc_avg"], tag)
-    _assert_unique(df, "name", tag)
+    need = ["name","start_time","end_time","report","connected","hydro_group_name","pmax","pmin","eff","vomc_avg"]
+    for c in need:
+        if c not in df.columns:
+            raise ValueError(f"[{tag}] falta columna: {c}")
 
-    # Parseo estricto de fechas
-    df["start_time"] = df["start_time"].map(lambda s: _to_dt_strict(s, tag, "start_time"))
-    df["end_time"]   = df["end_time"].map(lambda s: _to_dt_strict(s, tag, "end_time"))
+    # ✅ usar datetime.strptime para soportar 3000-01-01-00:00
+    df["start_time"] = df["start_time"].map(lambda s: _to_dt_strict_py(s, tag, "start_time"))
+    df["end_time"]   = df["end_time"].map(lambda s: _to_dt_strict_py(s, tag, "end_time"))
 
-    # Normalizaciones de tipos/campos
-    df["report"]         = df["report"].map(lambda x: _to_bool(x, True))
-    df["connected"]      = df["connected"].map(lambda x: _to_bool(x, True))
-    if "use_pump_mode" in df.columns:
-        df["use_pump_mode"] = df["use_pump_mode"].map(lambda x: _to_bool(x, False))
-    else:
-        df["use_pump_mode"] = False
-
-    # Opcionales numéricos
-    for opt in ("pmax_pump","pmin_pump","vomc_avg","eff","pmax","pmin"):
-        if opt in df.columns:
-            df[opt] = df[opt].map(lambda x: _to_float(x, 0.0))
-        else:
-            df[opt] = 0.0
-
-    # Opcional texto
-    if "busbar" not in df.columns:
-        df["busbar"] = None
-
-    # --------- Rows (uno por unidad declarada) ---------
     rows: List[HydroGeneratorRow] = []
+    HG_all: List[str] = []
+    PmaxHG: Dict[str, float] = {}
+    PminHG: Dict[str, float] = {}
+    kappa_hg: Dict[str, float] = {}
+    ROR: List[str] = []
+
     for _, r in df.iterrows():
         rows.append(HydroGeneratorRow(
             name=str(r["name"]),
-            start_time=r["start_time"].to_pydatetime(),
-            end_time=r["end_time"].to_pydatetime(),
+            start_time=r["start_time"],
+            end_time=r["end_time"],
             report=bool(r["report"]),
             connected=bool(r["connected"]),
-            busbar=(None if pd.isna(r["busbar"]) else str(r["busbar"])),
-            hydro_group_name=(None if pd.isna(r["hydro_group_name"]) else str(r["hydro_group_name"])),
-            use_pump_mode=bool(r["use_pump_mode"]),
-            pmax=float(r["pmax"]),
-            pmin=float(r["pmin"]),
-            pmax_pump=float(r.get("pmax_pump", 0.0)),
-            pmin_pump=float(r.get("pmin_pump", 0.0)),
+            busbar=str(r["busbar"]) if "busbar" in df.columns else None,
+            hydro_group_name=str(r["hydro_group_name"]) if pd.notna(r["hydro_group_name"]) else None,
+            use_pump_mode=bool(r.get("use_pump_mode", False)),
+            pmax=float(r.get("pmax", 0.0)),
+            pmin=float(r.get("pmin", 0.0)),
+            pmax_pump=float(r.get("pmax_pump", 0.0)) if "pmax_pump" in df.columns else 0.0,
+            pmin_pump=float(r.get("pmin_pump", 0.0)) if "pmin_pump" in df.columns else 0.0,
             eff=float(r.get("eff", 1.0)),
-            vomc_avg=float(r.get("vomc_avg", 0.0)),
+            vomc_avg=float(r.get("vomc_avg", 0.0))
         ))
 
-    # --------- Catálogo agregado por 'hydro_group_name' ---------
-    # Filtra filas con grupo válido
-    grp_df = df.loc[df["hydro_group_name"].notna()].copy()
-    grp_df["hydro_group_name"] = grp_df["hydro_group_name"].astype(str)
+        hg = str(r["hydro_group_name"]) if pd.notna(r["hydro_group_name"]) else None
+        if not hg:
+            continue
+        HG_all.append(hg)
+        PmaxHG[hg] = float(r.get("pmax", 0.0))
+        PminHG[hg] = float(r.get("pmin", 0.0))
+        kappa_hg[hg] = float(r.get("eff", 1.0))
 
-    # Sumar pmax/pmin por grupo; usar promedio de eff como kappa_hg (MVP)
-    agg = grp_df.groupby("hydro_group_name").agg(
-        pmax=("pmax","sum"),
-        pmin=("pmin","sum"),
-        kappa=("eff","mean")
-    ).reset_index()
+        if hg.startswith(ror_prefix):
+            ROR.append(hg)
 
-    HG_all: List[str] = agg["hydro_group_name"].tolist()
-    PmaxHG: Dict[str, float] = dict(zip(agg["hydro_group_name"], agg["pmax"]))
-    PminHG: Dict[str, float] = dict(zip(agg["hydro_group_name"], agg["pmin"]))
-    kappa_hg: Dict[str, float] = dict(zip(agg["hydro_group_name"], agg["kappa"]))
-
-    # ROR por prefijo (ajústalo si cambias convención)
-    ROR: List[str] = sorted([g for g in HG_all if g.startswith(ror_prefix)])
+    HG_all = sorted(set(HG_all))
+    ROR = sorted(set(ROR))
 
     cat = GeneratorsCatalog(
-        HG_all=sorted(HG_all),
+        HG_all=HG_all,
         PmaxHG=PmaxHG,
         PminHG=PminHG,
         kappa_hg=kappa_hg,
