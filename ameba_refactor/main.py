@@ -25,6 +25,7 @@ from thermal.io import FuelStore, load_thermal_generators
 
 # --- ESS
 from bess.io import load_ess_assets
+import pandas as pd
 
 
 def main():
@@ -39,7 +40,7 @@ def main():
         if c not in blocks_assign.columns:
             raise AssertionError(f"[blocks.csv] falta columna requerida: {c}")
 
-    blocks_assign["time_str"] = blocks_assign["time_str"].astype(str).strip()
+    blocks_assign["time_str"] = blocks_assign["time_str"].astype(str).str.strip()
     if "time" not in blocks_assign.columns:
         blocks_assign["time"] = pd.to_datetime(
             blocks_assign["time_str"], format="%Y-%m-%d-%H:%M", errors="raise"
@@ -50,19 +51,29 @@ def main():
     if "t" not in blocks_assign.columns:
         blocks_assign["t"] = blocks_assign["block"].astype(int)
 
-    # --- METADATOS DE BLOQUES (t, label, duration_h) ---
-    # Se derivan desde las asignaciones. Etiqueta tipo 'B1', 'B2', ... y duración = 2h.
-    blocks_meta = (
-        blocks_assign[["block"]]
-        .drop_duplicates()
-        .sort_values("block")
-        .rename(columns={"block": "t"})
-        .assign(
-            t=lambda d: d["t"].astype(int),
-            label=lambda d: "B" + d["t"].astype(str),
-            duration_h=2.0,
-        )[["t", "label", "duration_h"]]
-    )
+    # 1) blocks_assign: ya tiene ['stage','block','time_str','time', 'y','t'].
+    #    Garantiza los tipos y orden.
+    blocks_assign["time"] = pd.to_datetime(blocks_assign["time_str"], format="%Y-%m-%d-%H:%M", errors="raise")
+
+    # 2) Construimos el catálogo de bloques (una fila por (stage, block))
+    #    Regla: cada bloque = 2 horas → end_time = start_time + 2h
+    gb = blocks_assign.groupby(["stage", "block"], as_index=False)["time"].min()
+    gb = gb.rename(columns={"time": "start_time"})
+    gb["end_time"] = gb["start_time"] + pd.Timedelta(hours=2)
+
+    # (opcional) etiqueta del bloque
+    gb["label"] = gb["block"].astype(int).map(lambda x: f"B{x:02d}")
+
+    # duración en horas (constante 2.0)
+    gb["duration_h"] = 2.0
+
+    # Normaliza tipos/columnas requeridas por el calendario
+    blocks_meta = gb[["stage", "block", "label", "start_time", "end_time", "duration_h"]].copy()
+    blocks_meta["stage"] = blocks_meta["stage"].astype(int)
+    blocks_meta["block"] = blocks_meta["block"].astype(int)
+
+
+
 
     # Construye calendario (API actual espera 3 dataframes)
     cal = ModelCalendar.from_frames(
@@ -87,7 +98,7 @@ def main():
         load_csv=DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Load.csv",
         time_format="%Y-%m-%d-%H:%M",
     )
-    demand_by_block = demand_store.build_by_block(calendar=cal, fill_missing_as_zero=True)
+    #demand_by_block = demand_store.build_by_block(calendar=cal, fill_missing_as_zero=True)
     demand_wide_block = demand_store.to_dataframe_by_block(calendar=cal)
 
     # 5) Generación
