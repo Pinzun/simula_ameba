@@ -1,18 +1,36 @@
-# -*- coding: utf-8 -*-
+"""Calendario central del modelo AMEBA con anotaciones detalladas.
+
+El objetivo de este módulo es encapsular el manejo del calendario
+multietapas empleado por el modelo eléctrico.  Se definen estructuras
+de datos para los *stages*, los bloques temporales y la asignación
+horaria detallada, junto con utilidades para navegar esta información.
+"""
+
 from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterator, Optional, Tuple
 
 import pandas as pd
 
-# Este calendar NO asume patrón uniforme. Mantiene:
-# - stages_df:             s_id,start_time,end_time,num_blocks,start_ts,end_ts
-# - blocks_df:             stage,block,start_time,end_time   (bloques de 2h)
-# - blocks_assignments_df: stage,block,time,time_str         (detalle horario)
+# El calendario no presupone un patrón uniforme entre etapas. Se mantienen
+# tres tablas sincronizadas:
+#   * ``stages_df``  → catálogo de etapas con ventanas temporales y metadatos.
+#   * ``blocks_df``  → descripción agregada de cada bloque dentro de un stage.
+#   * ``blocks_assignments_df`` → detalle horario con la pertenencia de cada
+#                                 hora a un bloque determinado.
 
 @dataclass
 class ModelCalendar:
+    """Agrupa las tres vistas principales del calendario del modelo.
+
+    La clase ofrece constructores en términos de ``DataFrame`` y de archivos
+    CSV, además de utilidades de consulta que facilitan los cruces entre
+    bloques y marcas horarias.  El uso sistemático de copias evita efectos
+    laterales cuando múltiples componentes comparten la misma instancia.
+    """
+
     stages_df: pd.DataFrame
     blocks_df: pd.DataFrame
     blocks_assignments_df: pd.DataFrame
@@ -25,7 +43,7 @@ class ModelCalendar:
         blocks_df: pd.DataFrame,
         blocks_assignments_df: pd.DataFrame,
     ) -> "ModelCalendar":
-        # Validaciones mínimas de columnas
+        # 1) Validaciones mínimas de columnas en cada DataFrame
         need_stages = {"s_id", "start_time", "end_time", "start_ts", "end_ts", "num_blocks"}
         need_blocks = {"stage", "block", "start_time", "end_time"}
         need_assign = {"stage", "block", "time"}
@@ -39,12 +57,12 @@ class ModelCalendar:
         _check(blocks_df, need_blocks, "Blocks")
         _check(blocks_assignments_df, need_assign, "BlocksAssignments")
 
-        # Copias
+        # 2) Copias para evitar modificar los DataFrames originales
         S = stages_df.copy()
         B = blocks_df.copy()
         A = blocks_assignments_df.copy()
 
-        # Normaliza tipos de tiempo
+        # 3) Normaliza todos los campos temporales a ``datetime64``
         S["start_time"] = pd.to_datetime(S["start_time"], errors="raise")
         S["end_time"]   = pd.to_datetime(S["end_time"],   errors="raise")
         # (start_ts/end_ts pueden quedarse como están si ya vienen numéricos)
@@ -60,7 +78,7 @@ class ModelCalendar:
             # fuerza formato string
             A["time_str"] = A["time_str"].astype(str)
 
-        # Ordena por sanidad
+        # 4) Ordena los datos para mantener un orden determinista
         S = S.sort_values("s_id").reset_index(drop=True)
         B = B.sort_values(["stage", "block"]).reset_index(drop=True)
         A = A.sort_values(["stage", "block", "time"]).reset_index(drop=True)
@@ -75,7 +93,16 @@ class ModelCalendar:
         tz: str = "America/Santiago",
         block_duration_h: int = 2,
     ) -> "ModelCalendar":
-        # Import local para evitar ciclos
+        """Construye el calendario a partir de archivos CSV en disco.
+
+        Se invocan los loaders reutilizables del paquete ``core.io`` y luego
+        se delega en :meth:`from_frames` para la normalización.  El parámetro
+        ``block_duration_h`` documenta explícitamente la duración objetivo de
+        los bloques, aunque el calendario podría contener otras duraciones si
+        los archivos lo definen así.
+        """
+
+        # Import local para evitar ciclos de importación con ``core.io``
         from .io import load_stages, load_blocks_with_hourly_assignments
 
         stages_df = load_stages(stages_csv, tz=tz)

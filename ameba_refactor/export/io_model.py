@@ -1,9 +1,15 @@
-# ameba_refactor/export/io_model.py
-# -*- coding: utf-8 -*-
+"""Rutinas de exportación del modelo con comentarios detallados.
+
+Las funciones de este módulo homogenizan estructuras de datos heterogéneas
+y las escriben como archivos CSV consistentes que alimentan al modelo AMEBA.
+Se documenta cada paso para facilitar el rastreo de los datos exportados.
+"""
+
 from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence, Optional, Dict, List, Tuple
+
 import pandas as pd
 import numpy as np
 
@@ -74,6 +80,13 @@ def _to_df(obj: Any, *, expected_columns: Optional[Iterable[str]] = None) -> pd.
 
 
 def _safe_to_csv(obj: Any, path: Path, *, expected_columns: Optional[Iterable[str]] = None) -> None:
+    """Normaliza ``obj`` a ``DataFrame`` y lo escribe en ``path``.
+
+    La función crea el directorio destino si no existe y garantiza que la
+    exportación sea siempre ``index=False`` para evitar columnas de índices
+    implícitos que luego compliquen la lectura desde otros componentes.
+    """
+
     df = _to_df(obj, expected_columns=expected_columns)
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False)
@@ -111,9 +124,11 @@ def export_model_inputs(
     stages: Any = None,
     blocks: Any = None,
 ) -> None:
-    """
-    Exporta todos los insumos del modelo a CSV en out_dir.
-    Acepta DataFrames, dicts, listas de dicts u objetos con .to_df().
+    """Exporta todos los insumos del modelo a CSV dentro de ``out_dir``.
+
+    Cada bloque temático (red, demanda, generación, hidro, etc.) se documenta
+    explícitamente para dejar constancia de los archivos resultantes.  La
+    función acepta estructuras heterogéneas gracias a :func:`_safe_to_csv`.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
 

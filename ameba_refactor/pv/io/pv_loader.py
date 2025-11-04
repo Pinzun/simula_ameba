@@ -1,119 +1,122 @@
-# pv/io/pv_loader.py
-# -*- coding: utf-8 -*-
+"""Cargador de generación fotovoltaica con documentación en español."""
+
 from __future__ import annotations
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Tuple
+
 import pandas as pd
 
-# deps del proyecto
 from profiles.io import ProfilePowerStore
-from core.calendar import ModelCalendar  # ajusta el import si tu módulo se llama distinto
+from core.calendar import ModelCalendar
+
 
 @dataclass(frozen=True)
 class PVPlant:
+    """Describe una planta fotovoltaica y su configuración básica."""
+
     name: str
     busbar: str
-    profile: str           # nombre del perfil (ej. Profile_PV_Kimal220)
+    profile: str  # Nombre del perfil horario (ej. ``Profile_PV_Kimal220``)
     pmax: float
     pmin: float
     vomc: float
     inv_cost: float
     candidate: bool
 
+
 @dataclass
 class PVData:
-    plants: Dict[str, PVPlant]                 # {plant -> PVPlant}
-    af: Dict[Tuple[str, int, int], float]      # {(plant,y,t) -> AF in [0,1]}
+    """Resultado compuesto de :func:`load_pv_generators`."""
 
-def _num(s, default=0.0) -> float:
+    plants: Dict[str, PVPlant]  # Catálogo de plantas por nombre
+    af: Dict[Tuple[str, int, int], float]  # {(plant, stage, block) -> factor medio}
+
+
+def _num(value, default: float = 0.0) -> float:
+    """Convierte ``value`` a ``float`` y aplica ``default`` si falla."""
+
     try:
-        return float(s)
+        return float(value)
     except Exception:
         return float(default)
 
-def _bool(x) -> bool:
-    return str(x).strip().lower() in {"true","1","yes","y","t"}
 
-def load_pv_generators(path_pv_csv: Path,
-                       pstore: ProfilePowerStore,
-                       calendar: ModelCalendar) -> PVData:
+def _bool(value) -> bool:
+    """Normaliza valores de texto/numéricos a booleanos estándar."""
+
+    return str(value).strip().lower() in {"true", "1", "yes", "y", "t"}
+
+
+def load_pv_generators(
+    path_pv_csv: Path,
+    pstore: ProfilePowerStore,
+    calendar: ModelCalendar,
+) -> PVData:
+    """Lee el catálogo de PV y calcula factores medios por bloque.
+
+    Pasos detallados:
+    1. Normalizar columnas del CSV y validar campos esenciales.
+    2. Construir un diccionario ``PVPlant`` por cada fila.
+    3. Tomar el detalle horario del calendario y promediar el perfil asociado
+       a cada planta dentro de cada bloque (``stage``, ``block``).
+    4. Retornar ``PVData`` con el catálogo y los factores medios en ``[0, 1]``.
     """
-    Lee el CSV de PV y devuelve:
-      - catálogo de plantas (PVPlant)
-      - AF promedio por bloque {(plant, y, t) -> af}, usando el perfil (columna 'zone')
-        y el mapeo horario del calendario (blocks_assignments_df).
-    Requisitos:
-      - CSV debe tener columnas: name,busbar,pmax,pmin,vomc_avg,gen_inv_cost,candidate,zone
-      - pstore.power_wide: index=time (Timestamp), cols=profiles
-      - calendar.blocks_assignments_df: columnas = stage,block,time (strings con formato '%Y-%m-%d-%H:%M')
-    """
+
     df = pd.read_csv(path_pv_csv)
     df.columns = [c.strip().lower() for c in df.columns]
 
-    need = {"name","busbar","zone","pmax"}
-    miss = [c for c in need if c not in df.columns]
-    if miss:
-        raise AssertionError(f"[PvGenerator] faltan columnas: {miss}")
+    required = {"name", "busbar", "zone", "pmax"}
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise AssertionError(f"[PvGenerator] faltan columnas obligatorias: {missing}")
 
-    # --- 1) Catálogo de plantas
     plants: Dict[str, PVPlant] = {}
     plant_to_profile: Dict[str, str] = {}
-    for _, r in df.iterrows():
-        name = str(r["name"])
-        prof = str(r.get("zone","")).strip()  # en tus CSV el perfil viene en 'zone'
+
+    for _, row in df.iterrows():
+        name = str(row["name"])
+        profile = str(row.get("zone", "")).strip()
+
         plants[name] = PVPlant(
             name=name,
-            busbar=str(r.get("busbar","")),
-            profile=prof,
-            pmax=_num(r.get("pmax",0.0)),
-            pmin=_num(r.get("pmin",0.0)),
-            vomc=_num(r.get("vomc_avg", 0.0)),
-            inv_cost=_num(r.get("gen_inv_cost",0.0)),
-            candidate=_bool(r.get("candidate", False)),
+            busbar=str(row.get("busbar", "")),
+            profile=profile,
+            pmax=_num(row.get("pmax", 0.0)),
+            pmin=_num(row.get("pmin", 0.0)),
+            vomc=_num(row.get("vomc_avg", 0.0)),
+            inv_cost=_num(row.get("gen_inv_cost", 0.0)),
+            candidate=_bool(row.get("candidate", False)),
         )
-        if prof:
-            plant_to_profile[name] = prof
 
-    # --- 2) AF promedio por bloque usando pstore + calendario
-    # usamos el detalle horario del calendario (asignación de horas a bloques)
-    # y promediamos los valores de perfil dentro de cada (stage, block)
-    # Nota: ProfilePowerStore ya tiene la matriz power_wide (time x profile)
-    # y un método de ayuda para promediar por bloque.
-    # Si tu ProfilePowerStore tiene un método distinto, ajusta aquí.
+        if profile:
+            plant_to_profile[name] = profile
+
+    # Detalle horario del calendario necesario para el promedio por bloque.
     blocks_detail = calendar.blocks_assignments_df.copy()
-    # Aseguramos tipo de tiempo y formato consistente con pstore.power_wide.index
     blocks_detail["time"] = pd.to_datetime(blocks_detail["time"], format="%Y-%m-%d-%H:%M")
 
-    # Reindex seguro para cada profile dentro de cada bloque y promediar:
     af: Dict[Tuple[str, int, int], float] = {}
+    used_profiles = {p for p in plant_to_profile.values() if p in pstore.power_wide.columns}
 
-    # agrupamos por (stage, block) y para cada planta tomamos el promedio del perfil en esas horas
-# ... arriba igual
-
-    grp = blocks_detail.groupby(["stage", "block"], sort=False)
-    for (y, t), chunk in grp:
-        ts = chunk["time"]
-
-        needed_profiles = [p for p in set(plant_to_profile.values()) if p in pstore.power_wide.columns]
-        if not needed_profiles:
+    for (stage, block), chunk in blocks_detail.groupby(["stage", "block"], sort=False):
+        timestamps = chunk["time"]
+        if timestamps.empty or not used_profiles:
             continue
 
-        # Reindexa por las horas del bloque y selecciona solo los perfiles necesarios
-        sub = pstore.power_wide.reindex(ts)  # index=time (Timestamp)
+        # Submatriz con las horas del bloque y solo los perfiles requeridos.
+        sub = pstore.power_wide.reindex(timestamps)
         if sub is None or sub.empty:
             continue
-        sub = sub[needed_profiles] if needed_profiles else sub
 
-        # 🔧 PARCHE: convertir cada columna a numérico (coerce → NaN → 0.0)
-        sub = sub.apply(pd.to_numeric, errors="coerce").fillna(0.0)
+        sub = sub[list(used_profiles)].apply(pd.to_numeric, errors="coerce").fillna(0.0)
+        profile_mean = sub.mean(axis=0).to_dict()
 
-        # Promedio por perfil dentro del bloque
-        prof_mean = sub.mean(axis=0).to_dict()  # {profile -> af}
-
-        # Escribir AF por planta, acotado a [0,1]
-        for plant, prof in plant_to_profile.items():
-            af_val = float(prof_mean.get(prof, 0.0))
-            af[(plant, int(y), int(t))] = max(0.0, min(1.0, af_val))
+        for plant, profile in plant_to_profile.items():
+            if profile not in profile_mean:
+                continue
+            value = float(profile_mean[profile])
+            af[(plant, int(stage), int(block))] = max(0.0, min(1.0, value))
 
     return PVData(plants=plants, af=af)
