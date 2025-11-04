@@ -1,4 +1,10 @@
-# main.py
+"""Script principal del pipeline AMEBA con comentarios ampliados.
+
+Este módulo orquesta la carga de insumos (calendario, red, demanda, oferta
+de generación, hidrología y almacenamiento) para luego exportar una carpeta
+con todos los CSV intermedios que requiere el modelo AMEBA.  Se documenta
+cada etapa con detalle para facilitar el mantenimiento y la depuración.
+"""
 from pathlib import Path
 from typing import Dict, Optional
 import pandas as pd
@@ -51,7 +57,12 @@ from hydro.core.calendar_adapter import make_calendar_data
 # Helpers
 # -----------------------------------------------------------------------------
 def _get_df(obj, attr_name: str) -> pd.DataFrame:
-    """Devuelve una copia del atributo DataFrame o del retorno del método si es callable."""
+    """Obtiene un ``DataFrame`` desde ``obj`` garantizando una copia independiente.
+
+    Algunos componentes almacenan DataFrames como atributos y otros los
+    exponen mediante métodos.  Esta utilidad abstrae esa diferencia y evita
+    modificaciones accidentales sobre la estructura original.
+    """
     val = getattr(obj, attr_name, None)
     if val is None:
         raise AttributeError(f"{obj} no tiene atributo '{attr_name}'")
@@ -73,24 +84,39 @@ def write_model_inputs_basic(
     thermal_units_df: Optional[pd.DataFrame] = None,
     ess_assets_df: Optional[pd.DataFrame] = None,
 ):
+    """Escribe los CSV básicos del modelo en ``out_dir``.
+
+    Cada bloque de este procedimiento está acompañado de comentarios que
+    describen las columnas esperadas y la razón de cada operación.  Se crea
+    el directorio destino si aún no existe para permitir ejecuciones limpias.
+    """
+
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Calendar
+    # ---------------------------- Calendario -----------------------------
+    # Se registran tanto la vista agregada por bloque como el detalle horario
+    # en archivos separados, manteniendo los campos en un orden explícito.
     cb = calendar_blocks_df[['stage','block','start_time','end_time','duration_h']].copy()
     ch = calendar_hours_df[['stage','block','time']].copy()
     cb.to_csv(out_dir / 'calendar_blocks.csv', index=False)
     ch.to_csv(out_dir / 'calendar_hours.csv', index=False)
 
-    # Demand
+    # ----------------------------- Demanda -------------------------------
+    # La demanda se exporta en formato ancho por bloque, asegurando que las
+    # columnas ``stage`` y ``block`` aparezcan primero para facilitar joins.
     demand_cols = ['stage','block'] + [c for c in demand_wide_block_df.columns if c not in ('stage','block')]
     demand_wide_block_df[demand_cols].to_csv(out_dir / 'demand_by_block_wide.csv', index=False)
 
-    # Network
+    # ------------------------------- Red ---------------------------------
+    # Se preserva solo la información necesaria para la simulación eléctrica.
     busbars_df[['name','voltage','voll']].to_csv(out_dir / 'busbars.csv', index=False)
     branches_df[['name','bus_i','bus_j','x','fmax_ab','fmax_ba','dc','losses']].to_csv(out_dir / 'branches.csv', index=False)
     system_df[['sbase','busbar_ref','interest_rate']].to_csv(out_dir / 'system.csv', index=False)
 
-    # Inflows
+    # ------------------------------ Hidro --------------------------------
+    # Los aportes hídricos pueden llegar como DataFrame (ya normalizado) o
+    # como diccionario {(nodo, (stage, block)) -> hm3}.  Aquí se manejan ambos
+    # casos y se uniformiza el formato antes de exportar.
     if isinstance(inflow_block_hm3, pd.DataFrame):
         cols_ok = ['name','stage','block','hm3']
         miss = [c for c in cols_ok if c not in inflow_block_hm3.columns]
@@ -103,7 +129,10 @@ def write_model_inputs_basic(
             rows.append({'name': node, 'stage': int(y), 'block': int(t), 'hm3': float(q)})
         pd.DataFrame(rows, columns=['name','stage','block','hm3']).to_csv(out_dir / 'inflow_block_hm3.csv', index=False)
 
-    # Opcionales
+    # --------------------------- Opcionales -----------------------------
+    # Solo se escriben los módulos de generación cuando efectivamente
+    # existen DataFrames asociados.  Esto permite ejecutar el pipeline aún
+    # cuando algún segmento no esté disponible.
     if isinstance(pv_units_df, pd.DataFrame):
         pv_units_df.to_csv(out_dir / 'plants_pv.csv', index=False)
     if isinstance(wind_units_df, pd.DataFrame):
@@ -117,7 +146,12 @@ def write_model_inputs_basic(
 
 
 def load_inflow_alias(path_csv: Path) -> Dict[str, str]:
-    """Carga alias opcionales para mapear inflows Afl_* -> Emb_* o HG_*."""
+    """Carga alias opcionales para mapear inflows ``Afl_*`` hacia ``Emb_`` o ``HG_*``.
+
+    El archivo permite resolver discrepancias de nomenclatura entre los nodos
+    de inflow y los catálogos hidroeléctricos.  Se normalizan los textos a
+    minúsculas para maximizar coincidencias y reducir errores de escritura.
+    """
     if not Path(path_csv).exists():
         return {}
     df = pd.read_csv(path_csv)
@@ -135,7 +169,12 @@ def load_inflow_alias(path_csv: Path) -> Dict[str, str]:
 # main
 # -----------------------------------------------------------------------------
 def main():
-    # 1) Calendario
+    """Ejecución principal del pipeline de preparación de datos."""
+
+    # ------------------------------------------------------------------
+    # 1) Calendario: lectura de stages/bloques y construcción del objeto
+    #    ``ModelCalendar`` que se utiliza en todos los módulos posteriores.
+    # ------------------------------------------------------------------
     stages_df = load_stages(DATA_DIR / "stages.csv")
     blocks_assign = load_blocks(stages_df, DATA_DIR / "blocks.csv").copy()
 
@@ -176,16 +215,22 @@ def main():
         blocks_assignments_df=blocks_assign,
     )
 
-    # 2) Profiles (matriz time x Profile_*)
+    # ------------------------------------------------------------------
+    # 2) Perfiles horarios de potencia (Profile_*) usados por PV/Wind.
+    # ------------------------------------------------------------------
     pstore = ProfilePowerStore.from_power_csv(DATA_DIR / "power.csv")
 
-    # 3) Red eléctrica
+    # ------------------------------------------------------------------
+    # 3) Red eléctrica: catálogos de barras, líneas y parámetros globales.
+    # ------------------------------------------------------------------
     busbars  = load_busbars(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Busbar.csv")
     branches = load_branches(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Branch.csv")
     system   = load_system(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_System.csv")
     validate_network(busbars, branches, system)
 
-    # 4) Demanda (series base + factores Proj_*)
+    # ------------------------------------------------------------------
+    # 4) Demanda eléctrica: combinación de series base y factores Proj_*.
+    # ------------------------------------------------------------------
     demand_series_df  = pd.read_csv(DATA_DIR / "demand.csv")   # time, scenario, L_*
     demand_factors_df = pd.read_csv(DATA_DIR / "factor.csv")   # time, Proj_*
 
@@ -204,7 +249,9 @@ def main():
     )
     demand_wide_block = demand_pkg.by_block_df.reset_index()
 
-    # 5) Generación variable (PV/Wind)
+    # ------------------------------------------------------------------
+    # 5) Generación variable (PV/Wind): catálogos y factores de planta.
+    # ------------------------------------------------------------------
     pv_units = load_pv_generators(
         DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_PvGenerator.csv", pstore, cal
     )
@@ -212,7 +259,9 @@ def main():
         DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_WindGenerator.csv", pstore, cal
     )
 
-    # --- FuelStore (para térmicas) ---
+    # ------------------------------------------------------------------
+    # 6) Preparación de térmicas: calendario auxiliar y carga de combustibles.
+    # ------------------------------------------------------------------
     cb = _get_df(cal, "hours_df")   # columnas esperadas: stage, block, time
     cb["time"] = pd.to_datetime(cb["time"], errors="coerce")
     if cb["time"].isna().any():
@@ -235,7 +284,9 @@ def main():
         fuel_store,
     )
 
-    # 5.bis) HYDRO – catálogos + grafo (validados primero)
+    # ------------------------------------------------------------------
+    # 7) Hidro: catálogos, grafo de conexiones y validaciones.
+    # ------------------------------------------------------------------
     dam_rows, res_catalog = load_dam(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Dam.csv")
     hg_rows, hg_limits    = load_hydrogroup(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_HydroGroup.csv")
     gen_rows, gen_catalog = load_hydrogenerator(
@@ -312,10 +363,12 @@ def main():
     except Exception:
         pass
 
-    # 6) BESS
+    # ------------------------------------------------------------------
+    # 8) Sistemas de almacenamiento (BESS) y comprobaciones rápidas.
+    # ------------------------------------------------------------------
     ess_assets = load_ess_assets(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_ESS.csv")
 
-    # 7) Listo para “modeling”
+    # 9) Resumen de estado de cada componente cargado.
     print("OK ✓ calendar, network, demand, PV, Wind, Thermal, ESS cargados")
     try:
         n_blocks_total = cal.n_blocks_total()
@@ -350,7 +403,9 @@ def main():
         n_ess = "?"
     print(f"- ESS assets: {n_ess}")
 
-    # --- Exportación determinista ---
+    # ------------------------------------------------------------------
+    # 10) Exportación determinista de todos los insumos a ``data/model_inputs``.
+    # ------------------------------------------------------------------
     calendar_blocks_df = _get_df(cal, "blocks_df")
     calendar_hours_df  = _get_df(cal, "hours_df")
     calendar_blocks_df["start_time"] = pd.to_datetime(calendar_blocks_df["start_time"], errors="raise")
