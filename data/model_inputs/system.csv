@@ -1,2 +1,2 @@
-value
-"SystemRow(sbase=100.0, busbar_ref='NuevaCharrua500', interest_rate=0.06)"
+sbase,busbar_ref,interest_rate
+100,NuevaCharrua500,0.06

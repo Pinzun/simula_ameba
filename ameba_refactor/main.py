@@ -8,6 +8,7 @@ cada etapa con detalle para facilitar el mantenimiento y la depuración.
 from pathlib import Path
 from typing import Dict, Optional
 import pandas as pd
+from dataclasses import asdict, is_dataclass  # <- para helpers KISS de conversión
 
 # --- rutas base
 from core.config import DATA_DIR
@@ -56,17 +57,72 @@ from hydro.core.calendar_adapter import make_calendar_data
 # -----------------------------------------------------------------------------
 # Helpers
 # -----------------------------------------------------------------------------
-def _get_df(obj, attr_name: str) -> pd.DataFrame:
-    """Obtiene un ``DataFrame`` desde ``obj`` garantizando una copia independiente.
 
-    Algunos componentes almacenan DataFrames como atributos y otros los
-    exponen mediante métodos.  Esta utilidad abstrae esa diferencia y evita
-    modificaciones accidentales sobre la estructura original.
-    """
+# --- Helpers para convertir PV/Wind (PVData/WindData) a DataFrame ----
+def pv_to_plants_df(pv) -> pd.DataFrame:
+    """Convierte PVData.plants -> DataFrame plants_pv.csv"""
+    if pv is None or not hasattr(pv, "plants"):
+        return pd.DataFrame()
+    rows = []
+    for p in pv.plants.values():
+        rows.append({
+            "name": p.name,
+            "busbar": p.busbar,
+            "profile": p.profile,
+            "pmax": float(p.pmax),
+            "pmin": float(p.pmin),
+            "vomc": float(p.vomc),
+            "inv_cost": float(p.inv_cost),
+            "candidate": bool(p.candidate),
+        })
+    return pd.DataFrame(rows).sort_values("name").reset_index(drop=True)
+
+def wind_to_plants_df(wind) -> pd.DataFrame:
+    """Convierte WindData.plants -> DataFrame plants_wind.csv"""
+    if wind is None or not hasattr(wind, "plants"):
+        return pd.DataFrame()
+    rows = []
+    for p in wind.plants.values():
+        rows.append({
+            "name": p.name,
+            "busbar": p.busbar,
+            "profile": p.profile,
+            "pmax": float(p.pmax),
+            "pmin": float(p.pmin),
+            "vomc": float(p.vomc),
+            "inv_cost": float(p.inv_cost),
+            "candidate": bool(p.candidate),
+        })
+    return pd.DataFrame(rows).sort_values("name").reset_index(drop=True)
+
+
+
+
+def _get_df(obj, attr_name: str) -> pd.DataFrame:
+    """Obtiene un DataFrame desde obj garantizando copia independiente."""
     val = getattr(obj, attr_name, None)
     if val is None:
         raise AttributeError(f"{obj} no tiene atributo '{attr_name}'")
     return val().copy() if callable(val) else val.copy()
+
+
+def _to_df_generic(obj) -> Optional[pd.DataFrame]:
+    """Convierte ESS u otros catálogos no-plantas a DataFrame de forma genérica."""
+    if isinstance(obj, pd.DataFrame):
+        return obj
+    rows = []
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            d = asdict(v) if is_dataclass(v) else (v.__dict__ if hasattr(v, "__dict__") else dict(v))
+            d.setdefault("name", k)
+            rows.append(d)
+        return pd.DataFrame(rows) if rows else None
+    if isinstance(obj, list):
+        for v in obj:
+            d = asdict(v) if is_dataclass(v) else (v.__dict__ if hasattr(v, "__dict__") else dict(v))
+            rows.append(d)
+        return pd.DataFrame(rows) if rows else None
+    return None
 
 
 def write_model_inputs_basic(
@@ -84,39 +140,25 @@ def write_model_inputs_basic(
     thermal_units_df: Optional[pd.DataFrame] = None,
     ess_assets_df: Optional[pd.DataFrame] = None,
 ):
-    """Escribe los CSV básicos del modelo en ``out_dir``.
-
-    Cada bloque de este procedimiento está acompañado de comentarios que
-    describen las columnas esperadas y la razón de cada operación.  Se crea
-    el directorio destino si aún no existe para permitir ejecuciones limpias.
-    """
-
+    """Escribe los CSV básicos del modelo en out_dir."""
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # ---------------------------- Calendario -----------------------------
-    # Se registran tanto la vista agregada por bloque como el detalle horario
-    # en archivos separados, manteniendo los campos en un orden explícito.
+    # Calendario
     cb = calendar_blocks_df[['stage','block','start_time','end_time','duration_h']].copy()
     ch = calendar_hours_df[['stage','block','time']].copy()
     cb.to_csv(out_dir / 'calendar_blocks.csv', index=False)
     ch.to_csv(out_dir / 'calendar_hours.csv', index=False)
 
-    # ----------------------------- Demanda -------------------------------
-    # La demanda se exporta en formato ancho por bloque, asegurando que las
-    # columnas ``stage`` y ``block`` aparezcan primero para facilitar joins.
+    # Demanda
     demand_cols = ['stage','block'] + [c for c in demand_wide_block_df.columns if c not in ('stage','block')]
     demand_wide_block_df[demand_cols].to_csv(out_dir / 'demand_by_block_wide.csv', index=False)
 
-    # ------------------------------- Red ---------------------------------
-    # Se preserva solo la información necesaria para la simulación eléctrica.
+    # Red
     busbars_df[['name','voltage','voll']].to_csv(out_dir / 'busbars.csv', index=False)
     branches_df[['name','bus_i','bus_j','x','fmax_ab','fmax_ba','dc','losses']].to_csv(out_dir / 'branches.csv', index=False)
     system_df[['sbase','busbar_ref','interest_rate']].to_csv(out_dir / 'system.csv', index=False)
 
-    # ------------------------------ Hidro --------------------------------
-    # Los aportes hídricos pueden llegar como DataFrame (ya normalizado) o
-    # como diccionario {(nodo, (stage, block)) -> hm3}.  Aquí se manejan ambos
-    # casos y se uniformiza el formato antes de exportar.
+    # Inflows
     if isinstance(inflow_block_hm3, pd.DataFrame):
         cols_ok = ['name','stage','block','hm3']
         miss = [c for c in cols_ok if c not in inflow_block_hm3.columns]
@@ -129,10 +171,7 @@ def write_model_inputs_basic(
             rows.append({'name': node, 'stage': int(y), 'block': int(t), 'hm3': float(q)})
         pd.DataFrame(rows, columns=['name','stage','block','hm3']).to_csv(out_dir / 'inflow_block_hm3.csv', index=False)
 
-    # --------------------------- Opcionales -----------------------------
-    # Solo se escriben los módulos de generación cuando efectivamente
-    # existen DataFrames asociados.  Esto permite ejecutar el pipeline aún
-    # cuando algún segmento no esté disponible.
+    # Opcionales
     if isinstance(pv_units_df, pd.DataFrame):
         pv_units_df.to_csv(out_dir / 'plants_pv.csv', index=False)
     if isinstance(wind_units_df, pd.DataFrame):
@@ -146,12 +185,7 @@ def write_model_inputs_basic(
 
 
 def load_inflow_alias(path_csv: Path) -> Dict[str, str]:
-    """Carga alias opcionales para mapear inflows ``Afl_*`` hacia ``Emb_`` o ``HG_*``.
-
-    El archivo permite resolver discrepancias de nomenclatura entre los nodos
-    de inflow y los catálogos hidroeléctricos.  Se normalizan los textos a
-    minúsculas para maximizar coincidencias y reducir errores de escritura.
-    """
+    """Carga alias opcionales para mapear inflows Afl_* hacia Emb_ o HG_*."""
     if not Path(path_csv).exists():
         return {}
     df = pd.read_csv(path_csv)
@@ -171,10 +205,7 @@ def load_inflow_alias(path_csv: Path) -> Dict[str, str]:
 def main():
     """Ejecución principal del pipeline de preparación de datos."""
 
-    # ------------------------------------------------------------------
-    # 1) Calendario: lectura de stages/bloques y construcción del objeto
-    #    ``ModelCalendar`` que se utiliza en todos los módulos posteriores.
-    # ------------------------------------------------------------------
+    # 1) Calendario
     stages_df = load_stages(DATA_DIR / "stages.csv")
     blocks_assign = load_blocks(stages_df, DATA_DIR / "blocks.csv").copy()
 
@@ -198,7 +229,7 @@ def main():
         blocks_assign["time_str"], format="%Y-%m-%d-%H:%M", errors="raise"
     )
 
-    # Catálogo de bloques (una fila por (stage,block))
+    # Catálogo de bloques
     gb = blocks_assign.groupby(["stage", "block"], as_index=False)["time"].min()
     gb = gb.rename(columns={"time": "start_time"})
     gb["end_time"] = gb["start_time"] + pd.Timedelta(hours=2)
@@ -215,43 +246,32 @@ def main():
         blocks_assignments_df=blocks_assign,
     )
 
-    # ------------------------------------------------------------------
-    # 2) Perfiles horarios de potencia (Profile_*) usados por PV/Wind.
-    # ------------------------------------------------------------------
+    # 2) Profiles
     pstore = ProfilePowerStore.from_power_csv(DATA_DIR / "power.csv")
 
-    # ------------------------------------------------------------------
-    # 3) Red eléctrica: catálogos de barras, líneas y parámetros globales.
-    # ------------------------------------------------------------------
+    # 3) Red
     busbars  = load_busbars(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Busbar.csv")
     branches = load_branches(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Branch.csv")
     system   = load_system(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_System.csv")
     validate_network(busbars, branches, system)
 
-    # ------------------------------------------------------------------
-    # 4) Demanda eléctrica: combinación de series base y factores Proj_*.
-    # ------------------------------------------------------------------
+    # 4) Demanda
     demand_series_df  = pd.read_csv(DATA_DIR / "demand.csv")   # time, scenario, L_*
     demand_factors_df = pd.read_csv(DATA_DIR / "factor.csv")   # time, Proj_*
-
-    # Pedimos DataFrame directamente (solo name/busbar)
     loads_df = load_loads(
         DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Load.csv",
         return_type="dataframe",
     )[["name", "busbar"]].copy()
 
-    # Proyección + agregación a bloques (promedio MW por bloque)
     demand_pkg = build_demand(
         calendar=cal,
         loads_df=loads_df,
         demand_series_df=demand_series_df,
-        demand_factors_df=demand_factors_df,  # aplica Proj_* a los años del calendario
+        demand_factors_df=demand_factors_df,
     )
     demand_wide_block = demand_pkg.by_block_df.reset_index()
 
-    # ------------------------------------------------------------------
-    # 5) Generación variable (PV/Wind): catálogos y factores de planta.
-    # ------------------------------------------------------------------
+    # 5) Generación variable
     pv_units = load_pv_generators(
         DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_PvGenerator.csv", pstore, cal
     )
@@ -259,10 +279,8 @@ def main():
         DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_WindGenerator.csv", pstore, cal
     )
 
-    # ------------------------------------------------------------------
-    # 6) Preparación de térmicas: calendario auxiliar y carga de combustibles.
-    # ------------------------------------------------------------------
-    cb = _get_df(cal, "hours_df")   # columnas esperadas: stage, block, time
+    # 6) Térmicas
+    cb = _get_df(cal, "hours_df")   # stage, block, time
     cb["time"] = pd.to_datetime(cb["time"], errors="coerce")
     if cb["time"].isna().any():
         bad = cb.loc[cb["time"].isna(), "time"].head(5).tolist()
@@ -284,9 +302,7 @@ def main():
         fuel_store,
     )
 
-    # ------------------------------------------------------------------
-    # 7) Hidro: catálogos, grafo de conexiones y validaciones.
-    # ------------------------------------------------------------------
+    # 7) Hidro
     dam_rows, res_catalog = load_dam(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Dam.csv")
     hg_rows, hg_limits    = load_hydrogroup(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_HydroGroup.csv")
     gen_rows, gen_catalog = load_hydrogenerator(
@@ -301,7 +317,6 @@ def main():
     inflow_to_res = {str(k).lower(): v for k, v in inflow_to_res.items()}
     inflow_to_hg  = {str(k).lower(): v for k, v in inflow_to_hg.items()}
 
-    # Alias opcional
     alias = load_inflow_alias(DATA_DIR / "inflow_alias.csv")
     for k, tgt in alias.items():
         if tgt.startswith("Emb_"):
@@ -311,11 +326,9 @@ def main():
             inflow_to_hg[k] = tgt
             inflow_to_res.pop(k, None)
 
-    # Validaciones de integridad
     validate_hydro_catalogs(res_catalog, gen_catalog)
     validate_hydro_graph(graph, res_catalog, gen_catalog)
 
-    # --- Inflows/irrigación → bloques y HydroData ---
     inflow_rows = load_inflow_nodes(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Inflow.csv")
     irr_rows    = load_irrigation_nodes(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_Irrigation.csv")
 
@@ -327,7 +340,7 @@ def main():
     unique_series_nodes = len({s.name for s in inflow_series})
     print(f"- Inflow series (nodos con serie): {unique_series_nodes}")
 
-    cal_hydro = make_calendar_data(cal)  # adapter ModelCalendar -> CalendarData
+    cal_hydro = make_calendar_data(cal)
     inflow_block_hm3 = aggregate_inflows_to_blocks(calendar=cal_hydro, series=inflow_series)
 
     def _norm(s: str) -> str:
@@ -340,7 +353,7 @@ def main():
         print(f"[hydro] WARNING: {len(unmapped)} inflow(s) sin mapeo a Emb_/HG_: p.ej. {unmapped[:5]}")
         pd.DataFrame({"name": unmapped, "target": ""}).to_csv(DATA_DIR / "inflow_alias_todo.csv", index=False)
 
-    irrigation_block_hm3 = {}  # si aún no tienes serie horaria de riego
+    irrigation_block_hm3 = {}
 
     hydro_pkg = aggregate_hydro_to_blocks(
         calendar=cal_hydro,
@@ -363,12 +376,10 @@ def main():
     except Exception:
         pass
 
-    # ------------------------------------------------------------------
-    # 8) Sistemas de almacenamiento (BESS) y comprobaciones rápidas.
-    # ------------------------------------------------------------------
+    # 8) ESS
     ess_assets = load_ess_assets(DATA_DIR / "PNCP 2 - 2025 ESC-C  - PET 2024 V2_ESS.csv")
 
-    # 9) Resumen de estado de cada componente cargado.
+    # Resumen
     print("OK ✓ calendar, network, demand, PV, Wind, Thermal, ESS cargados")
     try:
         n_blocks_total = cal.n_blocks_total()
@@ -403,20 +414,18 @@ def main():
         n_ess = "?"
     print(f"- ESS assets: {n_ess}")
 
-    # ------------------------------------------------------------------
-    # 10) Exportación determinista de todos los insumos a ``data/model_inputs``.
-    # ------------------------------------------------------------------
+    # 10) Export determinista a data/model_inputs
     calendar_blocks_df = _get_df(cal, "blocks_df")
     calendar_hours_df  = _get_df(cal, "hours_df")
     calendar_blocks_df["start_time"] = pd.to_datetime(calendar_blocks_df["start_time"], errors="raise")
     calendar_blocks_df["end_time"]   = pd.to_datetime(calendar_blocks_df["end_time"],   errors="raise")
     calendar_hours_df["time"]        = pd.to_datetime(calendar_hours_df["time"],        errors="raise")
 
-    # Coerción defensiva por si loaders devolvieron objetos no-DF
-    pv_df      = pv_units  if isinstance(pv_units, pd.DataFrame)      else None
-    wind_df    = wind_units if isinstance(wind_units, pd.DataFrame)   else None
-    thermal_df = thermal_pkg.get("units_df") if isinstance(thermal_pkg, dict) and isinstance(thermal_pkg.get("units_df"), pd.DataFrame) else None
-    ess_df     = ess_assets if isinstance(ess_assets, pd.DataFrame)   else None
+    # Coerción defensiva a DataFrame para exportar (KISS)
+    pv_df      = pv_to_plants_df(pv_units)         # <-- ahora sí DataFrame
+    wind_df    = wind_to_plants_df(wind_units)     # <-- ahora sí DataFrame
+    thermal_df = thermal_pkg.get("units_df") if isinstance(thermal_pkg, dict) and isinstance(thermal_pkg.get("units_df"), pd.DataFrame) else _to_df_generic(thermal_pkg)
+    ess_df     = _to_df_generic(ess_assets)
 
     write_model_inputs_basic(
         out_dir=DATA_DIR / "model_inputs",
@@ -428,7 +437,7 @@ def main():
         system_df=system,
         inflow_block_hm3=inflow_block_hm3,
         pv_units_df=pv_df,
-        wind_units_df=wind_df,
+        wind_units_df=wind_df,           # <- corrección aquí
         thermal_units_df=thermal_df,
         ess_assets_df=ess_df,
     )

@@ -1,50 +1,32 @@
-"""Lectura detallada del catálogo de líneas eléctricas."""
-
-from __future__ import annotations
-
-from pathlib import Path
-from typing import Dict
-
 import pandas as pd
+from pathlib import Path
 
-from network.core.types import BranchRow
-
-
-def load_branches(path_csv: Path) -> Dict[str, BranchRow]:
-    """Carga ``BranchRow`` desde ``path_csv`` aplicando filtros y conversiones.
-
-    El archivo de entrada puede contener columnas auxiliares; aquí se
-    normalizan los nombres, se ignoran las líneas desconectadas y se
-    construyen dataclasses listos para usarse dentro del modelo eléctrico.
+def load_branches(path_csv: Path) -> pd.DataFrame:
     """
-
+    Carga el CSV de ramas y devuelve un DataFrame limpio con las columnas mínimas:
+    name, bus_i, bus_j, x, fmax_ab, fmax_ba, dc, losses
+    """
     df = pd.read_csv(path_csv)
     df.columns = [c.strip() for c in df.columns]
 
-    out: Dict[str, BranchRow] = {}
-    for _, row in df.iterrows():
-        if not bool(row.get("connected", True)):
-            # Se omiten las líneas marcadas como desconectadas en el catálogo.
-            continue
+    # Filtrar ramas conectadas, si existe la columna
+    if "connected" in df.columns:
+        df = df[df["connected"] == True].copy()
 
-        name = str(row["name"])
-        bus_i = str(row["busbari"])
-        bus_j = str(row["busbarf"])
-        reactance = float(row["x"])
-        fmax_ab = float(row.get("max_flow", 0.0))
-        fmax_ba = float(row.get("max_flow_reverse", fmax_ab))
-        dc = bool(row.get("dc", True))
-        losses = bool(row.get("losses", False))
+    # Renombrar columnas si es necesario, según lo que usa tu modelo
+    rename_map = {
+        "busbari": "bus_i",
+        "busbarf": "bus_j",
+        "max_flow": "fmax_ab",
+        "max_flow_reverse": "fmax_ba"
+    }
+    df = df.rename(columns=rename_map)
 
-        out[name] = BranchRow(
-            name=name,
-            bus_i=bus_i,
-            bus_j=bus_j,
-            x=reactance,
-            fmax_ab=fmax_ab,
-            fmax_ba=fmax_ba,
-            dc=dc,
-            losses=losses,
-        )
+    # Seleccionar solo las columnas requeridas (agregamos valores por defecto si faltan)
+    req_cols = ['name', 'bus_i', 'bus_j', 'x', 'fmax_ab', 'fmax_ba', 'dc', 'losses']
+    for col in req_cols:
+        if col not in df.columns:
+            df[col] = 0 if col in ['fmax_ab', 'fmax_ba', 'x'] else False
 
-    return out
+    # Ordenar y devolver
+    return df[req_cols].copy()

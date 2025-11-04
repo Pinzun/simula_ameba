@@ -1,23 +1,19 @@
-"""Carga de parámetros globales del sistema eléctrico."""
-
-from __future__ import annotations
-
+import pandas as pd
 from pathlib import Path
 
-import pandas as pd
-
-from network.core.types import SystemRow
-
-
-def load_system(path_csv: Path) -> SystemRow:
-    """Lee ``path_csv`` y devuelve una instancia de :class:`SystemRow`."""
-
+def load_system(path_csv: Path) -> pd.DataFrame:
+    """
+    Carga el archivo CSV de configuración del sistema eléctrico
+    y devuelve un DataFrame con una sola fila.
+    """
     df = pd.read_csv(path_csv)
     df.columns = [c.strip() for c in df.columns]
-    row = df.iloc[0]
 
-    return SystemRow(
-        sbase=float(row["sbase"]),
-        busbar_ref=str(row["busbar_ref"]),
-        interest_rate=float(row.get("interest_rate", 0.0)),
-    )
+    # Seleccionar y renombrar columnas relevantes (si es necesario)
+    req_cols = ["sbase", "busbar_ref", "interest_rate"]
+    for col in req_cols:
+        if col not in df.columns:
+            df[col] = None  # Completar si faltan columnas
+
+    # Aseguramos que hay sólo una fila válida
+    return df[req_cols].head(1).copy()

@@ -10,19 +10,32 @@ import pandas as pd
 from network.core.types import BusbarRow
 
 
-def load_busbars(path_csv: Path) -> Dict[str, BusbarRow]:
-    """Convierte el CSV de barras en un diccionario de :class:`BusbarRow`."""
+# -*- coding: utf-8 -*-
+from pathlib import Path
+import pandas as pd
 
+def load_busbars(path_csv: Path) -> pd.DataFrame:
+    """
+    Carga el CSV de barras eléctricas y devuelve un DataFrame con columnas
+    normalizadas: ['name', 'voltage', 'voll'].
+    """
     df = pd.read_csv(path_csv)
-    df.columns = [c.strip() for c in df.columns]
+    df.columns = [c.strip().lower() for c in df.columns]  # normaliza headers a minúsculas
 
-    out: Dict[str, BusbarRow] = {}
-    for _, row in df.iterrows():
-        name = str(row["name"])
-        voltage = float(row.get("voltage", 0.0))
-        voll_value = row.get("prices", None)
-        voll_float = float(voll_value) if pd.notna(voll_value) else None
+    # Renombra columnas si es necesario (por ejemplo, 'prices' -> 'voll')
+    if "prices" in df.columns and "voll" not in df.columns:
+        df = df.rename(columns={"prices": "voll"})
 
-        out[name] = BusbarRow(name=name, voltage=voltage, voll=voll_float)
+    # Asegura las columnas requeridas
+    need = {"name", "voltage", "voll"}
+    missing = need - set(df.columns)
+    if missing:
+        raise ValueError(f"[load_busbars] faltan columnas requeridas: {missing}")
 
-    return out
+    # Tipos de datos
+    df["name"] = df["name"].astype(str).str.strip()
+    df["voltage"] = pd.to_numeric(df["voltage"], errors="coerce")
+    df["voll"] = pd.to_numeric(df["voll"], errors="coerce")
+
+    return df[["name", "voltage", "voll"]].copy()
+
