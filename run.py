@@ -20,7 +20,7 @@ from io_utils import (
 
 # model
 from model.time import build_time
-from model.hydro import build_hydro  # aún no usado, pero lo dejamos importado
+from model.hydro_balance import build_hydro_balance  # aún no usado, pero lo dejamos importado
 from io_utils import load_demand, log_demand_info
 from model.demand import build_demand
 
@@ -98,7 +98,7 @@ def main():
         png_relpath="outputs/diagrams/hydro_basins.png",
         html_relpath="outputs/diagrams/hydro_basins.html"
     )
-
+    build_hydro_balance(m, tb, hd, inflow_node, irr)
     # (Próximo paso) build_hydro(m, hd, inflow_node, irr, hgrp, voli_by_node, tb)
     # Lo dejamos para cuando ya fijemos las ecuaciones del módulo hídrico.
 
