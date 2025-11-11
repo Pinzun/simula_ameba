@@ -1,2 +1,0 @@
-name,start_time,end_time,report,rpreq_up,rpreq_down,rsreq_up,rsreq_down,rtreq_up,rtreq_down,rtreq,max_pv_penetration,max_wind_penetration,inertia_req
-"SEN",1970-01-01-00:00,3000-01-01-00:00,true,0,0,0,0,0,0,0,0,0,30000
