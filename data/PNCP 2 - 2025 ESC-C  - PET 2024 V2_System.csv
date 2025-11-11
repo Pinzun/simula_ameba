@@ -1,2 +1,0 @@
-name,sbase,busbar_ref,interest_rate,adequacy_margin,obj_scaling,dams_scaling,beta_loads,beta_irrigations,minihydro_power_limit,minihydro_date_limit,co2_emission_tax,cap_payments,ncre_quota
-"GENERAL",100,"NuevaCharrua500",0.06,0,1000000,1000,650,1000000,20,2007-01-01-00:00,5,0,0
